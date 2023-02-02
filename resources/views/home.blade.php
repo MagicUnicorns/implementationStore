@@ -2,6 +2,8 @@
 
 @section('content')
 <div class="container">
+<!--
+    Auto generated stuff:
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -17,6 +19,42 @@
                     {{ __('You are logged in!') }}
                 </div>
             </div>
+        </div>
+    </div>
+-->
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <img class="card-img-top p-5" src="https://docs.adyen.com/user/pages/docs/02.online-payments/checkout-drop-in.svg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title1</h5>
+                    <p class="card-text">Card text1</p>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Primary1</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <img class="card-img-top p-5" src="https://docs.adyen.com/user/pages/docs/02.online-payments/checkout-components.svg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title2</h5>
+                    <p class="card-text">Card text2</p>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Primary2</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+        <div class="card">
+            <img class="card-img-top p-5" src="https://docs.adyen.com/user/pages/docs/02.online-payments/checkout-api-only.svg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title3</h5>
+                    <p class="card-text">Card text3</p>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Primary3</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            Hallo {{ Auth::user()->username }}!
         </div>
     </div>
 </div>
