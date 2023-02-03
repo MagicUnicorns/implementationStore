@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 
-class SettingsController extends Controller
+class ApiController extends Controller
 {
-    /**
+        /**
      * Create a new controller instance.
      *
      * @return void
@@ -22,12 +21,8 @@ class SettingsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function show($user)
+    public function index()
     {
-        $user = User::findOrFail($user);
-
-        return view('settings', [
-            'user' => $user
-        ]);
+        return view('api');
     }
 }

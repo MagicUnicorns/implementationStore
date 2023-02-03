@@ -51,7 +51,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('settings') }}">{{ __('Settings') }}</a>
+                                <a class="nav-link" href="{{ url('/settings/' . Auth::user()->id) }}">{{ __('Settings') }}</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

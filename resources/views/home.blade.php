@@ -29,7 +29,8 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title1</h5>
                     <p class="card-text">Card text1</p>
-                    <button type="button" class="btn btn-primary btn-lg btn-block">Primary1</button>
+                    <!-- <button type="button" class="btn btn-primary btn-lg btn-block">Primary1</button> -->
+                    <a href="{{ route('dropin') }}" class="btn btn-primary btn-lg btn-block" role="button">Dropin</a>
                 </div>
             </div>
         </div>
@@ -39,7 +40,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title2</h5>
                     <p class="card-text">Card text2</p>
-                    <button type="button" class="btn btn-primary btn-lg btn-block">Primary2</button>
+                    <a href="{{ route('components') }}" class="btn btn-primary btn-lg btn-block" role="button">Components</a>
                 </div>
             </div>
         </div>
@@ -49,7 +50,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title3</h5>
                     <p class="card-text">Card text3</p>
-                    <button type="button" class="btn btn-primary btn-lg btn-block">Primary3</button>
+                    <a href="{{ route('api') }}" class="btn btn-primary btn-lg btn-block" role="button">API Only</a>
                 </div>
             </div>
         </div>

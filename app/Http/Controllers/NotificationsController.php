@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 
-class SettingsController extends Controller
+class NotificationsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -14,7 +13,7 @@ class SettingsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -22,12 +21,8 @@ class SettingsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function show($user)
+    public function index()
     {
-        $user = User::findOrFail($user);
-
-        return view('settings', [
-            'user' => $user
-        ]);
+        return 'test';
     }
 }

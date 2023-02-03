@@ -20,4 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'index'])->name('settings');
+
+Route::get('/settings/{user}', [App\Http\Controllers\SettingsController::class, 'show'])->name('settings.show');
+
+Route::get('/dropin', [App\Http\Controllers\DropinController::class, 'index'])->name('dropin');
+Route::get('/components', [App\Http\Controllers\ComponentsController::class, 'index'])->name('components');
+Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->name('api');
+
+Route::get('/notifications', [App\Http\Controllers\SettingsController::class, 'index'])->name('getNotifications');
+Route::post('/notifications', [App\Http\Controllers\SettingsController::class, 'index'])->name('notifications');

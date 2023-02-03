@@ -23,7 +23,7 @@
     </div>
 -->
     <div class="row">
-        Settings
+        Settings {{ $user->username }}
     </div>
 </div>
 @endsection
