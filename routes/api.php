@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/notifications', [App\Http\Controllers\SettingsController::class, 'index'])->name('getNotifications');
+Route::post('/notifications', [App\Http\Controllers\SettingsController::class, 'index'])->name('notifications');
+
+Route::post('/paymentMethods', [App\Http\Controllers\PaymentMethodsController::class, 'store'])->name('paymentMethods.store');
+Route::post('/payments', [App\Http\Controllers\PaymentsController::class, 'store'])->name('payments.store');
+Route::post('/payments/details', [App\Http\Controllers\PaymentsDetailsController::class, 'store'])->name('paymentsDetails.store');
