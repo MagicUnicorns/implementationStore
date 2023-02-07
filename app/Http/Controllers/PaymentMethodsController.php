@@ -34,6 +34,12 @@ class PaymentMethodsController extends Controller
         ])
         ->post(env('ADYEN_PAYMENT_METHODS_ENDPOINT',null), [
             'merchantAccount' => env('ADYEN_MERCHANT_ACCOUNT_NAME',null),
+            'allowedPaymentMethods' => [
+                'ideal',
+                'giropay',
+                'scheme',
+                'twint',
+            ],
         ]);
 
         return $response->json();

@@ -1,6 +1,6 @@
 import AdyenCheckout from '@adyen/adyen-web';
 
-export async function dropin(paymentMethodsArray){
+export async function dropin(paymentMethodsArray, mount = true){
     console.log('dropint323');
     console.log( paymentMethodsArray);
     console.log(await paymentMethodsArray);
@@ -48,7 +48,10 @@ export async function dropin(paymentMethodsArray){
         }
       };
       
-      return (await AdyenCheckout(configuration)).create('dropin').mount(document.getElementById('dropin-container'))
+      if (mount)
+        return (await AdyenCheckout(configuration)).create('dropin').mount(document.getElementById('dropin-container'))
+
+      return await AdyenCheckout(configuration)
 }
 
 const httpPost = (endpoint, data) =>

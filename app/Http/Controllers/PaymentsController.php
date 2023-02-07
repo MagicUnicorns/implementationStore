@@ -39,9 +39,14 @@ class PaymentsController extends Controller
             ],
             'reference' => 'My test reference 123',
             'paymentMethod' => request("paymentMethod"),
-            'returnUrl' => 'https://example.com',
+            'returnUrl' => 'http://my-sandbox.sebastian-lerch.sb01.k8s.adyen.com:8080/dropin',
         ]);
 
         return $response->json();
+    }
+
+    public function result(Request $request){
+        $type = $request->type;
+        return view('result')->with('type', $type);
     }
 }
