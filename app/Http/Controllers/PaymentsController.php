@@ -34,12 +34,12 @@ class PaymentsController extends Controller
         ->post(env('ADYEN_PAYMENTS_ENDPOINT',null), [
             'merchantAccount' => env('ADYEN_MERCHANT_ACCOUNT_NAME',null),
             'amount' => [
-                'currency' => 'CHF',
-                'value' => 1000,
+                'currency' => 'EUR',
+                'value' => 10000,
             ],
             'reference' => 'My test reference 123',
             'paymentMethod' => request("paymentMethod"),
-            'returnUrl' => 'http://my-sandbox.sebastian-lerch.sb01.k8s.adyen.com:8080/dropin',
+            'returnUrl' => env(ADYEN_RETURN_URL_BASE) . '/dropin',
         ]);
 
         return $response->json();

@@ -36,7 +36,7 @@ class PaymentMethodsController extends Controller
             'merchantAccount' => env('ADYEN_MERCHANT_ACCOUNT_NAME',null),
             'amount' => [
                 'currency' => 'EUR',
-                'value' => '10000',
+                'value' => 10000,
             ],
             'countryCode' => 'DE',
             'allowedPaymentMethods' => [
