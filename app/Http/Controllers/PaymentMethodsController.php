@@ -43,11 +43,11 @@ class PaymentMethodsController extends Controller
                 'ideal',
                 'giropay',
                 'twint',
+                'scheme',
                 
             ],
             'blockedPaymentMethods' => [
-                'amazonpay',
-                'scheme',
+                
             ],
         ]);
 
