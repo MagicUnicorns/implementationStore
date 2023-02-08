@@ -25,7 +25,7 @@ class PaymentsController extends Controller
     {
         $response = Http::accept('application/json')
         ->withOptions([
-            'proxy' => 'http://sandboxproxy-vip.system.osext1.nlzwo1o.adyen.cloud:3128'
+            'proxy' => env('PROXY', null),
          ])
          ->withHeaders([
             'X-API-Key' => env('ADYEN_API_KEY', null),
