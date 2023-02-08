@@ -1,9 +1,6 @@
 import AdyenCheckout from '@adyen/adyen-web';
 
 export async function dropin(paymentMethodsArray, mount = true){
-    console.log('dropint323');
-    console.log( paymentMethodsArray);
-    console.log(await paymentMethodsArray);
 
     const configuration = {
       paymentMethodsResponse: await paymentMethodsArray,
@@ -73,5 +70,23 @@ async function makePayment(data){
     return response;
   } catch (data_2) {
     return console.error(data_2);
+  }
+}
+
+function showFinalResult(res) {
+  switch (res.resultCode) {
+      case "Authorised":
+          window.location.href = "/result/success";
+          break;
+      case "Pending":
+      case "Received":
+          window.location.href = "/result/pending";
+          break;
+      case "Refused":
+          window.location.href = "/result/failed";
+          break;
+      default:
+          window.location.href = "/result/error";
+          break;
   }
 }
