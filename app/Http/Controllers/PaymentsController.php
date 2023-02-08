@@ -39,7 +39,7 @@ class PaymentsController extends Controller
             ],
             'reference' => 'My test reference 123',
             'paymentMethod' => request("paymentMethod"),
-            'returnUrl' => env(ADYEN_RETURN_URL_BASE) . '/dropin',
+            'returnUrl' => env('ADYEN_RETURN_URL_BASE','https://example.com') . '/dropin',
         ]);
 
         return $response->json();
