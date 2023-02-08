@@ -34,6 +34,11 @@ class PaymentMethodsController extends Controller
         ])
         ->post(env('ADYEN_PAYMENT_METHODS_ENDPOINT',null), [
             'merchantAccount' => env('ADYEN_MERCHANT_ACCOUNT_NAME',null),
+            'amount' => [
+                'currency' => 'CHF',
+                'value' => '1000',
+            ],
+            'countryCode' => 'CH',
             'allowedPaymentMethods' => [
                 'ideal',
                 'giropay',
