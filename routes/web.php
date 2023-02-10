@@ -27,4 +27,4 @@ Route::get('/dropin', [App\Http\Controllers\DropinController::class, 'index'])->
 Route::get('/components', [App\Http\Controllers\ComponentsController::class, 'index'])->name('components');
 Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->name('api');
 
-Route::get('/result/{types}', [App\Http\Controllers\PaymentsController::class,'result'])->name('result');
+Route::get('/result/{type}', [App\Http\Controllers\PaymentsController::class,'result'])->name('result');

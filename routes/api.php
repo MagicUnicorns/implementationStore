@@ -18,8 +18,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/notifications', [App\Http\Controllers\SettingsController::class, 'index'])->name('getNotifications');
-Route::post('/notifications', [App\Http\Controllers\SettingsController::class, 'index'])->name('notifications');
+//Route::get('/notifications', [App\Http\Controllers\SettingsController::class, 'index'])->name('getNotifications');
+Route::post('/notifications/{type}', [App\Http\Controllers\NotificationsController::class, 'store'])->name('notifications.store');
 
 Route::post('/paymentMethods', [App\Http\Controllers\PaymentMethodsController::class, 'store'])->name('paymentMethods.store');
 Route::post('/payments', [App\Http\Controllers\PaymentsController::class, 'store'])->name('payments.store');

@@ -44,7 +44,6 @@ class PaymentMethodsController extends Controller
                 'giropay',
                 'twint',
                 'scheme',
-                
             ],
             'blockedPaymentMethods' => [
                 
