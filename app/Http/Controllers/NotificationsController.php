@@ -37,7 +37,7 @@ class NotificationsController extends Controller
     public function store(Request $request)
     {
         //$content = '{"data":{"balancePlatform":"SebastianL","accountHolder":{"contactDetails":{},"description":"Test Account h123447 test 23123","legalEntityId":"LE322KH223222J5HCSKGS75PQ","capabilities":{"receiveFromPlatformPayments":{"enabled":"true","requested":"true","allowed":"true","verificationStatus":"valid"},"receiveFromBalanceAccount":{"enabled":"true","requested":"true","allowed":"true","verificationStatus":"valid"},"sendToBalanceAccount":{"enabled":"true","requested":"true","allowed":"true","verificationStatus":"valid"},"sendToTransferInstrument":{"enabled":"true","requested":"true","allowed":"true","verificationStatus":"valid"}},"id":"AH32272223222D5HDR94HBX67","status":"Active"}},"environment":"test","type":"balancePlatform.accountHolder.created"}';
-        $key = '981BD5B8B7686106D1B2A2A038D7E314A493E441E123DF00E0A8BE7527480B1C';
+        $key = 'D7AC6CDB75C9A54A16E05FCC8F26FE472042E4885457D9F9AF6667B87A599A19';
         
         $content = $request->getContent();
         $signature = $request->header('hmacsignature');
