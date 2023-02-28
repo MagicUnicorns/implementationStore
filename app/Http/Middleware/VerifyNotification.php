@@ -25,7 +25,7 @@ class VerifyNotification
             $key = env('BALANCE_HMAC_KEY');
             $hexHash = hash_hmac('sha256', $content, hex2bin($key));
             $base64Hash = base64_encode(hex2bin($hexHash));
-            $signature = $request->header('hmacSignature');
+            $signature = $request->header('hmacsignature');
 
             if (strcmp($signature, $base64Hash) !== 0){
                 return response('[rejected]', 200);
