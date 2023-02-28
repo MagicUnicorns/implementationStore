@@ -3,7 +3,7 @@
 /public/hot
 /public/storage
 /storage/*.key
-/vendor this should not be added to repo!
+/vendor
 .env
 .env.backup
 .env.production
