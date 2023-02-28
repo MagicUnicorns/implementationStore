@@ -16,20 +16,50 @@ class VerifyNotification
      */
     public function handle(Request $request, Closure $next)
     {
-        $content = '{"data":{"balancePlatform":"SebastianL","balanceAccount":{"accountHolderId":"AH3227C223222D5HF8267FJBM","defaultCurrencyCode":"EUR","description":"Main balance account 123873255456546677","timeZone":"Europe\/Amsterdam","id":"BA3227C223222D5HGBNB7FMKQ","status":"Active"}},"environment":"test","type":"balancePlatform.balanceAccount.created"}';
+        $type = $request->type;
+        // Notification Request JSON
+        $content = $request->getContent();
+      
+        if($type == 'balance'){
+            
+            $key = env('BALANCE_HMAC_KEY');
+            $hexHash = hash_hmac('sha256', $content, hex2bin($key));
+            $base64Hash = base64_encode(hex2bin($hexHash));
+            $signature = $request->header('hmacSignature');
 
-        //$key = '6D5BADA576A73109D879220DCB793FFD67DEF7AA18C74CCC0AB66FD87AC8AEEA';
-        $key = '7CEC7468D07AC56038AAC42A9961006AF08E2130A675106444317B13CE42A6AA';
-        $hexHash = hash_hmac('sha256', $content, hex2bin($key));
-        $base64Hash = base64_encode(hex2bin($hexHash));
-        $signature = 'WH0T9PxiUNUtGMNuPkePAZeJG5l5EoTyehWreRKSUVk=';
+            if (strcmp($signature, $base64Hash) !== 0){
+                return response('[rejected]', 200);
+            }
 
-        Storage::disk('local')->append('example.txt', Carbon::now() . ' | signature = ' . $signature . ' | hash: ' . $base64Hash . ' | strcmp: ' . strcmp($signature, $base64Hash));
+            $response = $next($request);
 
-        if (strcmp($signature, $base64Hash) !== 0){
-            return response('[rejected]', 200);
+            return response('[accepted]', 200);
         }
+        elseif ($type == 'psp') {
 
-        return $next($request);
+            // HMAC_KEY from the Customer Area
+            $hmacKey = env('PSP_HMAC_KEY');
+            $notificationRequest = json_decode($content, true);
+            $hmac = new \Adyen\Util\HmacSignature();
+
+            // Handling multiple notificationRequests
+            foreach ( $notificationRequest["notificationItems"] as $notificationRequestItem ) {
+                $params = $notificationRequestItem["NotificationRequestItem"];
+                // Handle the notification
+                if ( !$hmac->isValidNotificationHMAC($hmacKey, $params) ) {
+                    // verification failed, note: here we assume, that if one test fails the whole array fails!
+                    return response('[rejected]', 200);
+                }
+            }
+        }
+        else{
+            return response('[rejected]: Not supported type: ' . $type, 200);
+        }
+        
+        //test passed, so process the notification
+        $response = $next($request);
+
+        //when processing is done send the accepted string
+        return response('[accepted]', 200);
     }
 }
