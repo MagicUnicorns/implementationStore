@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\MerchantProfile;
 
 class MerchantProfileController extends Controller
 {
@@ -40,11 +41,37 @@ class MerchantProfileController extends Controller
 
         $imagePath = request('image')->store('uploads', 'public');
 
-        auth()->user()->profiles()->create([
+        auth()->user()->merchantProfiles()->create([
             'name' => $data['name'],
             'image' => $imagePath,
         ]);
 
+        return redirect('settings/' . auth()->user()->id);
+    }
+
+    /**
+     * Edit a merchant's profile
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function edit(Request $request)
+    {
+        return view('profiles.edit', [
+            'profile' => MerchantProfile::find(request('id')),
+        ]);
+    }
+
+        /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function update(Request $request)
+    {
+
+        //TODO do something with the values!
+
+        
         return redirect('settings/' . auth()->user()->id);
     }
 }
