@@ -38,8 +38,13 @@ class MerchantProfileController extends Controller
             'image'=>['required', 'image'],
         ]);
 
-        auth()->user()->profiles()->create($data);
+        $imagePath = request('image')->store('uploads', 'public');
 
-        dd($request->all());
+        auth()->user()->profiles()->create([
+            'name' => $data['name'],
+            'image' => $imagePath,
+        ]);
+
+        return redirect('settings/' . auth()->user()->id);
     }
 }

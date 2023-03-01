@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     }
 
-    public function profiles(){
+    public function merchantProfiles(){
 
         return $this->hasMany(MerchantProfile::class);
 

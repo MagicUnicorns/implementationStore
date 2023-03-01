@@ -25,5 +25,10 @@
     <div class="row">
         Settings {{ $user->username }}
     </div>
+    <div class="row">
+        @foreach($user->)
+
+
+    </div>
 </div>
 @endsection
