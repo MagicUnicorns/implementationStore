@@ -45,7 +45,13 @@ class User extends Authenticatable
 
     public function setting(){
 
-        return $this->hasMany(Setting::class);
+        return $this->hasOne(Setting::class);
+
+    }
+
+    public function profiles(){
+
+        return $this->hasMany(MerchantProfile::class);
 
     }
 }

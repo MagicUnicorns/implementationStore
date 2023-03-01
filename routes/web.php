@@ -22,6 +22,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/settings/{user}', [App\Http\Controllers\SettingsController::class, 'show'])->name('settings.show');
+Route::get('/profile/create', [App\Http\Controllers\MerchantProfileController::class, 'create'])->name('profile.create');
+Route::post('/profile', [App\Http\Controllers\MerchantProfileController::class, 'store'])->name('profile.store');
 
 Route::get('/dropin', [App\Http\Controllers\DropinController::class, 'index'])->name('dropin');
 Route::get('/components', [App\Http\Controllers\ComponentsController::class, 'index'])->name('components');

@@ -13,13 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('merchant_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('referenceId');
-            $table->string('type');
-            $table->longText('body');
-            $table->string('hmacSignature');
+            $table->string('name');
+            $table->unsignedBigInteger('user_id');
+            $table->string('image');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->index('user_id');
         });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('merchant_profiles');
     }
 };
