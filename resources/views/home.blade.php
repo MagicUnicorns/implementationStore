@@ -54,9 +54,9 @@
                 </div>
             </div>
         </div>
-        <div>
+        <!-- <div>
             Hallo {{ Auth::user()->username }}!
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection

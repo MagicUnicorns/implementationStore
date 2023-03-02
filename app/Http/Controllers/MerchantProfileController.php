@@ -68,10 +68,51 @@ class MerchantProfileController extends Controller
      */
     public function update(Request $request)
     {
+        $merchantProfile = MerchantProfile::find(request('id'));
 
-        //TODO do something with the values!
+        $data = $request->validate([
+            'name'=>'required',
+        ]);
+        if($request->image != ''){  
+            $request->validate([
+                'image'=>['image'],
+            ]);
+            
+            //remove old file
+            if($merchantProfile->image != ''  && $merchantProfile->image != null){
+                $file_old = 'storage/' . $merchantProfile->image;
+                unlink($file_old);
+            }
 
-        
+            //upload new file
+            $data['image'] = request('image')->store('uploads', 'public');
+
+        }
+
+        //update database
+        $merchantProfile->update($data);
+       
         return redirect('settings/' . auth()->user()->id);
+    }
+
+    /**
+     * Deletes a merchant's profile
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function destroy(Request $request)
+    {
+        $merchantProfile = MerchantProfile::find(request('id'));
+
+        //delete associated image
+        if($merchantProfile->image != ''  && $merchantProfile->image != null){
+            $file_old = 'storage/' . $merchantProfile->image;
+            unlink($file_old);
+        }
+
+        //remove database entry
+        MerchantProfile::destroy(request('id'));
+        
+        return back();
     }
 }

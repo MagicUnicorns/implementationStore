@@ -5,7 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Notification extends Model
+class Webhook extends Model
 {
     use HasFactory;
+
+    //enable mass assignment, this can be done as we check HMAC
+    protected $guarded = [];
 }

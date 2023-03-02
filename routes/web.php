@@ -25,6 +25,7 @@ Route::get('/settings/{user}', [App\Http\Controllers\SettingsController::class, 
 Route::get('/profile/create', [App\Http\Controllers\MerchantProfileController::class, 'create'])->name('profile.create');
 Route::get('/profile/{id}/edit', [App\Http\Controllers\MerchantProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile/{id}', [App\Http\Controllers\MerchantProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile/{id}', [App\Http\Controllers\MerchantProfileController::class, 'destroy'])->name('profile.destroy');
 
 Route::post('/profile', [App\Http\Controllers\MerchantProfileController::class, 'store'])->name('profile.store');
 

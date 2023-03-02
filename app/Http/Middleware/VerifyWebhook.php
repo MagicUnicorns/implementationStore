@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class VerifyNotification
+class VerifyWebhook
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class VerifyNotification
     public function handle(Request $request, Closure $next)
     {
         $type = $request->type;
-        // Notification Request JSON
+        // Webhook Request JSON
         $content = $request->getContent();
       
-        if($type == 'balance'){
+        if($type === 'balance'){
             
             $key = env('BALANCE_HMAC_KEY');
             $hexHash = hash_hmac('sha256', $content, hex2bin($key));
@@ -35,16 +35,16 @@ class VerifyNotification
 
             return response('[accepted]', 200);
         }
-        elseif ($type == 'psp') {
+        elseif ($type === 'psp') {
 
             // HMAC_KEY from the Customer Area
             $hmacKey = env('PSP_HMAC_KEY');
-            $notificationRequest = json_decode($content, true);
+            $webhookRequest = json_decode($content, true);
             $hmac = new \Adyen\Util\HmacSignature();
 
-            // Handling multiple notificationRequests
-            foreach ( $notificationRequest["notificationItems"] as $notificationRequestItem ) {
-                $params = $notificationRequestItem["NotificationRequestItem"];
+            // Handling multiple webhookRequests
+            foreach ( $webhookRequest["notificationItems"] as $webhookRequestItem ) {
+                $params = $webhookRequestItem["NotificationRequestItem"];
                 // Handle the notification
                 if ( !$hmac->isValidNotificationHMAC($hmacKey, $params) ) {
                     // verification failed, note: here we assume, that if one test fails the whole array fails!
