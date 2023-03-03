@@ -26,6 +26,9 @@ class SettingsController extends Controller
     {
         $user = User::findOrFail($user);
 
+        //only allow user to view his/her own setting
+        $this->authorize('view', $user->setting);        
+
         return view('settings', [
             'user' => $user
         ]);

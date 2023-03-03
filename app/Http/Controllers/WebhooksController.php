@@ -42,7 +42,7 @@ class WebhooksController extends Controller
     {
         $type = $request->type;
         $content = $request->getContent();
-        error_log('Some message here. >' . $type . '<');
+        
         if($type === 'balance'){
             //TODO properly fill referenceId, maybe we want a user_id here to be able to show webhooks belonging to a specific user?
             

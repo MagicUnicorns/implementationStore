@@ -56,12 +56,15 @@ class MerchantProfileController extends Controller
      */
     public function edit(Request $request)
     {
+        //only allow user to edit his/her own profile
+        $this->authorize('update', MerchantProfile::find(request('id')));  
+
         return view('profiles.edit', [
             'profile' => MerchantProfile::find(request('id')),
         ]);
     }
 
-        /**
+    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -69,6 +72,9 @@ class MerchantProfileController extends Controller
     public function update(Request $request)
     {
         $merchantProfile = MerchantProfile::find(request('id'));
+
+        //only allow user to edit his/her own profile
+        $this->authorize('update', $merchantProfile);  
 
         $data = $request->validate([
             'name'=>'required',
@@ -103,6 +109,9 @@ class MerchantProfileController extends Controller
     public function destroy(Request $request)
     {
         $merchantProfile = MerchantProfile::find(request('id'));
+
+        //only allow user to view his/her own profile
+        $this->authorize('delete', $merchantProfile);  
 
         //delete associated image
         if($merchantProfile->image != ''  && $merchantProfile->image != null){
