@@ -79,7 +79,7 @@ class MerchantProfileController extends Controller
         $data = $request->validate([
             'name'=>'required',
         ]);
-        if($request->image != ''){  
+        if($request->image){  
             $request->validate([
                 'image'=>['image'],
             ]);
