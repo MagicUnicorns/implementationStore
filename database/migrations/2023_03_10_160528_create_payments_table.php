@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->uuid('reference')->unique();
             $table->string('pspreference')->nullable();
             $table->string('resultcode')->nullable();
@@ -23,10 +23,8 @@ return new class extends Migration
             $table->text('response')->nullable();
             $table->timestamps();
 
-        });
-
-        Schema::table('payments', function($table) {
             $table->foreign('user_id')->references('id')->on('users');
+
             $table->index('user_id');
         });
     }
