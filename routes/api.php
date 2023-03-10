@@ -24,5 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/webhooks/{type}', [App\Http\Controllers\WebhooksController::class, 'store'])->middleware(VerifyWebhook::class)->name('webhooks.store');
 
 Route::post('/paymentMethods', [App\Http\Controllers\PaymentMethodsController::class, 'store'])->name('paymentMethods.store');
-Route::post('/payments', [App\Http\Controllers\PaymentsController::class, 'store'])->name('payments.store');
+Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
 Route::post('/payments/details', [App\Http\Controllers\PaymentsDetailsController::class, 'store'])->name('paymentsDetails.store');

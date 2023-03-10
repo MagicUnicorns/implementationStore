@@ -66,4 +66,8 @@ class User extends Authenticatable
         return $this->hasMany(MerchantProfile::class);
 
     }
+
+    public function payments(){
+        return $this->hasMany(Payment::class);
+    }
 }
