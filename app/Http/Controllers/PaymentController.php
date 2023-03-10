@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Http;
+
 class PaymentController extends Controller
 {
     /**
@@ -12,10 +14,10 @@ class PaymentController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -59,7 +61,7 @@ class PaymentController extends Controller
             'merchantAccount' => env('ADYEN_MERCHANT_ACCOUNT_NAME',null),
             'amount' => [
                 'currency' => 'EUR',
-                'value' => 1000,
+                'value' => 100000,
             ],
             'reference' => 'My test reference 123',
             'paymentMethod' => request("paymentMethod"),
