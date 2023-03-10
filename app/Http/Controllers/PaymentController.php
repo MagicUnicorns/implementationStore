@@ -59,7 +59,7 @@ class PaymentController extends Controller
             'merchantAccount' => env('ADYEN_MERCHANT_ACCOUNT_NAME',null),
             'amount' => [
                 'currency' => 'EUR',
-                'value' => 100000,
+                'value' => 1000,
             ],
             'reference' => 'My test reference 123',
             'paymentMethod' => request("paymentMethod"),
