@@ -23,8 +23,10 @@ return new class extends Migration
             $table->text('response')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+        });
 
+        Schema::table('payments', function($table) {
+            $table->foreign('user_id')->references('id')->on('users');
             $table->index('user_id');
         });
     }
