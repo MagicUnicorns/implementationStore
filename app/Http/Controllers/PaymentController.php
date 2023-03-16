@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Http;
 
+use App\BusinessLogic\Payments\PaymentsJsonBuilder;
+
 class PaymentController extends Controller
 {
     /**
@@ -45,9 +47,14 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
         //TODO create payment model
+
+        //TODO fill parameter array for following call correctly
+        $body = PaymentsJsonBuilder::createPaymentsBody($request->all());
+
+        //dd(json_encode($body));
 
         $response = Http::accept('application/json')
         ->withOptions([
@@ -57,18 +64,11 @@ class PaymentController extends Controller
             'X-API-Key' => env('ADYEN_API_KEY', null),
             'Content-Type' => 'application/json',
         ])
-        ->post(env('ADYEN_PAYMENTS_ENDPOINT',null), [
-            'merchantAccount' => env('ADYEN_MERCHANT_ACCOUNT_NAME',null),
-            'amount' => [
-                'currency' => 'EUR',
-                'value' => 100000,
-            ],
-            'reference' => 'My test reference 123',
-            'paymentMethod' => request("paymentMethod"),
-            'returnUrl' => env('ADYEN_RETURN_URL_BASE','https://example.com') . '/dropin',
-        ]);
+        ->post(env('ADYEN_PAYMENTS_ENDPOINT',null), $body);
 
         //TODO further fill payment model
+
+        //todo handle action here if there is one in the response
 
         //TODO store payment in DB
 
