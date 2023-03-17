@@ -68,10 +68,10 @@ class PaymentController extends Controller
 
         //TODO further fill payment model
 
-        //todo handle action here if there is one in the response
-
         //TODO store payment in DB
 
+        //if there is an action in the response frontend will handle it, if it is already authorised, 
+        //we are finished and front end will show success message
         return $response->json();
     }
 
