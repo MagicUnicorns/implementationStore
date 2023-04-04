@@ -35,6 +35,15 @@ Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->name('
 
 Route::get('/result/{type}', [App\Http\Controllers\PaymentController::class,'result'])->name('result');
 
+
+
+//temporary for testing only!
+Route::get('/event', function(){
+    event(new MessageNotification('This is test message'));
+});
+Route::get('/listen', function() {
+    return view('listen');
+});
 /*
  NOTE: it is important to have routes in correct order, e.g
 

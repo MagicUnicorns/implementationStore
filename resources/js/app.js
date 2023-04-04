@@ -7,10 +7,6 @@
 import './bootstrap';
 import { createApp } from 'vue';
 
-import './adyenImplementation'
-
-
-
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -19,9 +15,8 @@ import './adyenImplementation'
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
-
+import PaymentsBodyComponent from './components/PaymentsBodyComponent.vue';
+app.component('payments-body-component', PaymentsBodyComponent);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
