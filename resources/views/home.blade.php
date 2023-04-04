@@ -29,7 +29,6 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title1</h5>
                     <p class="card-text">Card text1</p>
-                    <!-- <button type="button" class="btn btn-primary btn-lg btn-block">Primary1</button> -->
                     <a href="{{ route('dropin') }}" class="btn btn-primary btn-lg btn-block" role="button">Dropin</a>
                 </div>
             </div>
@@ -57,6 +56,12 @@
         <!-- <div>
             Hallo {{ Auth::user()->username }}!
         </div> -->
+
+    </div>
+    <div class="row">
+    test
+        <payments-body-component></payments-body-component>
     </div>
 </div>
+
 @endsection
