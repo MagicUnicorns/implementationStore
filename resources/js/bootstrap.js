@@ -33,10 +33,3 @@ window.Echo = new Echo({
     cluster:import.meta.env.VITE_PUSHER_APP_CLUSTER,
     disableStats: true,
 });
-
-// broadcaster: 'pusher',
-// key: 'your-pusher-key',
-// wsHost: window.location.hostname,
-// wsPort: 6001,
-// forceTLS: false,
-// disableStats: true,

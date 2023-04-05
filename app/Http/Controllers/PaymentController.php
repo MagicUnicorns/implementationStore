@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Http;
 
 use App\BusinessLogic\Payments\PaymentsJsonBuilder;
 
+use App\Events\PaymentRequestNotification;
+
 class PaymentController extends Controller
 {
     /**
@@ -16,10 +18,10 @@ class PaymentController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -54,7 +56,10 @@ class PaymentController extends Controller
         //TODO fill parameter array for following call correctly
         $body = PaymentsJsonBuilder::createPaymentsBody($request->all());
 
-        //dd(json_encode($body));
+        //error_log(json_encode($body));
+        //PaymentRequestNotification::dispatch(auth()->user()->id, json_encode($body));
+        event(new PaymentRequestNotification(json_encode($body)));
+
 
         $response = Http::accept('application/json')
         ->withOptions([

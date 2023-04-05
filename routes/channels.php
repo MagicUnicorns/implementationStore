@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
+//dedicated channel for the user
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+    //dd((int) $user->id === (int) $id);
     return (int) $user->id === (int) $id;
+});
+
+//Test channel
+Broadcast::channel('notification', function () {
+    return true;
 });

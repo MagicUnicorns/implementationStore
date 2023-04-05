@@ -10,15 +10,13 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PaymentRequestNotification implements ShouldBroadcast
+class TestNotification implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
     /**
      * Create a new event instance.
-     *
-     * @return void
      */
     public function __construct($message)
     {
@@ -28,12 +26,10 @@ class PaymentRequestNotification implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
-        //there are PublicChannel (everyone can subscribe), 
-        // PrivateChannel (auth needed) and PresenceChannel
         return [
             new PrivateChannel('App.Models.User.' . auth()->user()->id),
         ];

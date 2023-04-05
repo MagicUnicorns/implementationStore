@@ -53,14 +53,13 @@
                 </div>
             </div>
         </div>
+        <div class="row pt-5">
+                <payments-component></payments-component>
+            </div>
         <!-- <div>
             Hallo {{ Auth::user()->username }}!
         </div> -->
 
-    </div>
-    <div class="row">
-    test
-        <payments-body-component></payments-body-component>
     </div>
 </div>
 

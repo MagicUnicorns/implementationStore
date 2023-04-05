@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Events\TestNotification;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,14 +37,15 @@ Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->name('
 
 Route::get('/result/{type}', [App\Http\Controllers\PaymentController::class,'result'])->name('result');
 
-
+//TODO temporary for testing remove this line, it is defined in api.php!
+Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store']);
 
 //temporary for testing only!
 Route::get('/event', function(){
-    event(new MessageNotification('This is test message'));
+    event(new TestNotification('This is test message'));
 });
 Route::get('/listen', function() {
-    return view('listen');
+    return view('temp');
 });
 /*
  NOTE: it is important to have routes in correct order, e.g

@@ -79,6 +79,11 @@
         <main class="py-4">
             
             @yield('content')
+            @auth
+            <div class="row pt-5">
+                <payments-body-component user-id="{{ Auth::user()->id }}"></payments-body-component>
+            </div>
+            @endauth
         </main>
     </div>
 </body>

@@ -83,44 +83,58 @@ class PaymentsJsonBuilder
         ];
         //TODO network tokens!
 
-        //token is used
-        if (array_key_exists('storedPaymentMethodId', $paymentsData['paymentMethod'])){
-            $token = $paymentsData["paymentMethod"]["storedPaymentMethodId"];
+        if(array_key_exists('paymentMethod', $paymentsData)){
 
-            $returnValue = [
-                "paymentMethod" => [
-                    "type" => "scheme",
-                    "storedPaymentMethodId" => $token,
-                ],
-            ];
+            //case 1: token is used
+            if (array_key_exists('storedPaymentMethodId', $paymentsData['paymentMethod'])){
+                $token = $paymentsData["paymentMethod"]["storedPaymentMethodId"];
 
-            if (array_key_exists('cvc', $paymentsData['paymentMethod'])){
-                $returnValue['paymentMethod']['cvc'] = paymentsData['paymentMethod']['cvc'];
+                $returnValue = [
+                    "paymentMethod" => [
+                        "type" => "scheme",
+                        "storedPaymentMethodId" => $token,
+                    ],
+                ];
+
+                if (array_key_exists('cvc', $paymentsData['paymentMethod'])){
+                    $returnValue['paymentMethod']['cvc'] = paymentsData['paymentMethod']['cvc'];
+                }
+                elseif(array_key_exists('encryptedSecurityCode', $paymentsData['paymentMethod'])){
+                    $returnValue['paymentMethod']['encryptedSecurityCode'] = paymentsData['paymentMethod']['encryptedSecurityCode'];
+                }
             }
-            elseif(array_key_exists('encryptedSecurityCode', $paymentsData['paymentMethod'])){
-                $returnValue['paymentMethod']['encryptedSecurityCode'] = paymentsData['paymentMethod']['encryptedSecurityCode'];
-            }
-        }
-        //encrypted card details are used
-        elseif(array_key_exists('encryptedCardNumber', $paymentsData['paymentMethod']) &&
-            array_key_exists('encryptedExpiryMonth', $paymentsData['paymentMethod']) &&
-            array_key_exists('encryptedExpiryYear', $paymentsData['paymentMethod']) &&
-            array_key_exists('encryptedSecurityCode', $paymentsData['paymentMethod'])){
+            //encrypted card details are used
+            elseif(array_key_exists('encryptedCardNumber', $paymentsData['paymentMethod']) &&
+                array_key_exists('encryptedExpiryMonth', $paymentsData['paymentMethod']) &&
+                array_key_exists('encryptedExpiryYear', $paymentsData['paymentMethod']) &&
+                array_key_exists('encryptedSecurityCode', $paymentsData['paymentMethod'])){
 
-            $returnValue['paymentMethod']['encryptedCardNumber'] = $paymentsData['paymentMethod']['encryptedCardNumber'];
-            $returnValue['paymentMethod']['encryptedExpiryMonth'] = $paymentsData['paymentMethod']['encryptedExpiryMonth'];
-            $returnValue['paymentMethod']['encryptedExpiryYear'] = $paymentsData['paymentMethod']['encryptedExpiryYear'];
-            $returnValue['paymentMethod']['encryptedSecurityCode'] = $paymentsData['paymentMethod']['encryptedSecurityCode'];
-        }
-        //raw credit card details are used
-        elseif(array_key_exists('number', $paymentsData['paymentMethod']) &&
-        array_key_exists('expiryMonth', $paymentsData['paymentMethod']) &&
-        array_key_exists('expiryYear', $paymentsData['paymentMethod'])){
-            $returnValue['paymentMethod']['number'] = $paymentsData['paymentMethod']['number'];
-            $returnValue['paymentMethod']['expiryMonth'] = $paymentsData['paymentMethod']['expiryMonth'];
-            $returnValue['paymentMethod']['expiryYear'] = $paymentsData['paymentMethod']['expiryYear'];
-            if(array_key_exists('cvc', $paymentsData['paymentMethod']))
-                $returnValue['paymentMethod']['cvc'] = $paymentsData['paymentMethod']['cvc'];
+                $returnValue['paymentMethod']['encryptedCardNumber'] = $paymentsData['paymentMethod']['encryptedCardNumber'];
+                $returnValue['paymentMethod']['encryptedExpiryMonth'] = $paymentsData['paymentMethod']['encryptedExpiryMonth'];
+                $returnValue['paymentMethod']['encryptedExpiryYear'] = $paymentsData['paymentMethod']['encryptedExpiryYear'];
+                $returnValue['paymentMethod']['encryptedSecurityCode'] = $paymentsData['paymentMethod']['encryptedSecurityCode'];
+            }
+            //raw credit card details are used
+            elseif(array_key_exists('number', $paymentsData['paymentMethod']) &&
+            array_key_exists('expiryMonth', $paymentsData['paymentMethod']) &&
+            array_key_exists('expiryYear', $paymentsData['paymentMethod'])){
+                $returnValue['paymentMethod']['number'] = $paymentsData['paymentMethod']['number'];
+                $returnValue['paymentMethod']['expiryMonth'] = $paymentsData['paymentMethod']['expiryMonth'];
+                $returnValue['paymentMethod']['expiryYear'] = $paymentsData['paymentMethod']['expiryYear'];
+                if(array_key_exists('cvc', $paymentsData['paymentMethod']))
+                    $returnValue['paymentMethod']['cvc'] = $paymentsData['paymentMethod']['cvc'];
+            }
+
+            //add holder name if provided
+            if (array_key_exists('holderName', $paymentsData['paymentMethod'])){
+                $returnValue['paymentMethod']['holderName'] = $paymentsData['paymentMethod']['holderName'];
+            }
+
+            //Add tokenization data if provided
+            $returnValue = array_merge($returnValue, self::getTokenisationData($paymentsData));
+
+            //Add 3DS data and return
+            $returnValue = array_merge($returnValue, self::get3DSData($paymentsData));
         }
         //nothing was specified => use dummy values
         else{
@@ -130,23 +144,13 @@ class PaymentsJsonBuilder
                     "type" => "scheme",
                     "encryptedCardNumber" => "test_5454545454545454",
                     "encryptedExpiryMonth" => "test_03",
-                    "encryptedExpiryYear" => "test_30",
+                    "encryptedExpiryYear" => "test_2030",
                     "encryptedSecurityCode" => "test_737",
                 ]
             ];
         }
 
-        //add holder name if provided
-        if (array_key_exists('holderName', $paymentsData['paymentMethod'])){
-            $returnValue['paymentMethod']['holderName'] = $paymentsData['paymentMethod']['holderName'];
-        }
-
-        //Add tokenization data if provided
-        $returnValue = array_merge($returnValue,self::getTokenisationData($paymentsData));
-
-        //Add 3DS data and return
-        return array_merge($returnValue, self::get3DSData($paymentsData));
-
+        return $returnValue;
     }
 
     private static function getTokenisationData($paymentsData){
