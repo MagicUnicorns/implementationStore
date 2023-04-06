@@ -18,6 +18,9 @@ const app = createApp({});
 import PaymentsBodyComponent from './components/PaymentsBodyComponent.vue';
 app.component('payments-body-component', PaymentsBodyComponent);
 
+import PaymentsResponseComponent from './components/PaymentsResponseComponent.vue';
+app.component('payments-response-component', PaymentsResponseComponent);
+
 import PaymentsComponent from './components/PaymentsComponent.vue';
 app.component('payments-component', PaymentsComponent);
 /**

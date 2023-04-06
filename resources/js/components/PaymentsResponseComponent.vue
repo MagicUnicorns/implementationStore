@@ -8,12 +8,13 @@
                     I'm an example component test. User id is {{userId}}
                 </div>
             </div> -->
-            <div class="request-container">
+
+            <div class="response-container">
               <div class="header">
-                  <h2>Request</h2>
+                  <h2>Response</h2>
               </div>
-              <p>The <b>request</b> to the <code>/payments</code> endpoint will be shown here.</p>
-              <pre class="request-code" id="request-code"></pre>
+              <p>The <b>response</b> from the <code>/payments</code> endpoint will be shown here.</p>
+              <pre class="response-code" id="response-code"></pre>
             </div>
         </div>
     </div>
@@ -26,13 +27,13 @@
             console.log('Component mounted, user id = ' + this.userId + '.')
             Echo.private('App.Models.User.' + this.userId)
                 .listen('TestNotification', (message) => {
-                    console.log("message is here and it says1:");
+                    console.log("message is here and it response component:");
                     console.log(message);
                 })
-                .listen('PaymentRequestNotification', (message) => {
-                    console.log("PaymentRequestNotification is here and it says: ");
+                .listen('PaymentResponseNotification', (message) => {
+                    console.log("PaymentResponseNotification is here and it says: ");
                     console.log(message);
-                    document.getElementById('request-code').innerHTML = JSON.stringify(JSON.parse(message.message),null,4);
+                    document.getElementById('response-code').innerHTML = JSON.stringify(JSON.parse(message.message),null,4);
                 });
         }
     }

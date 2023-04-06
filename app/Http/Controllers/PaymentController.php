@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 use App\BusinessLogic\Payments\PaymentsJsonBuilder;
 
 use App\Events\PaymentRequestNotification;
+use App\Events\PaymentResponseNotification;
 
 class PaymentController extends Controller
 {
@@ -72,7 +73,7 @@ class PaymentController extends Controller
         ->post(env('ADYEN_PAYMENTS_ENDPOINT',null), $body);
 
         //TODO further fill payment model
-
+        event(new PaymentResponseNotification(json_encode($response->json())));
         //TODO store payment in DB
 
         //if there is an action in the response frontend will handle it, if it is already authorised, 
