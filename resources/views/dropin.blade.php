@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <!-- <div class="row">
         <div>
             Hello {{ Auth::user()->username }}! This is the DROPIN site! <br>
             
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="dropin-container col-8" id="dropin-container">
 
