@@ -1,21 +1,10 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <!-- <div class="card">
-                <div class="card-header">Example Component</div>
-
-                <div class="card-body">
-                    I'm an example component test. User id is {{userId}}
-                </div>
-            </div> -->
-            <div class="request-container">
-              <div class="header">
-                  <h2>Request</h2>
-              </div>
-              <p>The <b>request</b> to the <code>/payments</code> endpoint will be shown here.</p>
-              <pre class="request-code" id="request-code"></pre>
-            </div>
+    <div class="request-container">
+        <div class="header">
+            <h2>Request</h2>
         </div>
+        <p>The <b>request</b> to the <code>/payments</code> endpoint will be shown here.</p>
+        <pre class="request-code" id="request-code"></pre>
     </div>
 </template>
 
@@ -26,11 +15,11 @@
             console.log('Component mounted, user id = ' + this.userId + '.')
             Echo.private('App.Models.User.' + this.userId)
                 .listen('TestNotification', (message) => {
-                    console.log("message is here and it says1:");
+                    console.log("Message is here (request component):");
                     console.log(message);
                 })
                 .listen('PaymentRequestNotification', (message) => {
-                    console.log("PaymentRequestNotification is here and it says: ");
+                    console.log("PaymentRequestNotification is here: ");
                     console.log(message);
                     document.getElementById('request-code').innerHTML = JSON.stringify(JSON.parse(message.message),null,4);
                 });
