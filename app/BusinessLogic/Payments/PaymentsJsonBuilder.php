@@ -22,7 +22,7 @@ class PaymentsJsonBuilder
      *                        and e.g. for scheme the (encrypted) card data. If not it should at least contain the 
      *                        paymentMethod, s.t. we can fill it with dummy data here.
      */
-    public static function createPaymentsBody($paymentsData, $amount = 1000, $currency = 'EUR'){
+    public static function createPaymentsBody($paymentsData, $amount = 1234, $currency = 'EUR'){
         
         //first add everything all payment methods have in common
         $body = self::getCommonDefaultValues($amount, $currency);

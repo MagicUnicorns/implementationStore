@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
 use App\Models\Webhook;
+use App\Events\WebhookNotification;
 
 class WebhooksController extends Controller
 {
@@ -19,7 +20,7 @@ class WebhooksController extends Controller
      */
     public function __construct()
     {
-
+        //no authentication as we receive data from external sources
     }
 
     /**
@@ -68,6 +69,8 @@ class WebhooksController extends Controller
             //we should never land here
             //TODO handle this?
         }
+
+        event(new WebhookNotification(json_encode($content)));
 
         //middleware overrides return value, so do not change here double check at VerifyNotification Middelware
         return response('[accepted]', 200);

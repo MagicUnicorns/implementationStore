@@ -38,15 +38,18 @@ Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->name('
 Route::get('/result/{type}', [App\Http\Controllers\PaymentController::class,'result'])->name('result');
 
 //TODO temporary for testing remove this line, it is defined in api.php!
-Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store']);
+// Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store']);
 
 //temporary for testing only!
 Route::get('/event', function(){
     event(new TestNotification('This is test message'));
 });
-Route::get('/listen', function() {
-    return view('temp');
-});
+
+Route::post('/tokens/create', [App\Http\Controllers\AuthTokenController::class, 'store']);
+
+Route::post('/paymentMethods', [App\Http\Controllers\PaymentMethodsController::class, 'store'])->name('paymentMethods.store');
+Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
+Route::post('/payments/details', [App\Http\Controllers\PaymentsDetailsController::class, 'store'])->name('paymentsDetails.store');
 /*
  NOTE: it is important to have routes in correct order, e.g
 

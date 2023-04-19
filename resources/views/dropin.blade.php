@@ -2,10 +2,13 @@
 
 @section('content')
 <div class="container">
+    {{ Auth::user() }}
     <div class="row">
-        <div class="dropin-container col-8" id="dropin-container">
-
-        </div> 
+        <div class="col-8">
+            <div class="row pt-5">
+                <dropin-component></dropin-component>
+            </div>
+        </div>
         <div class="col-4">
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
@@ -56,5 +59,6 @@
     <div class="row pt-5">
         <payments-component></payments-component>
     </div>
+
 </div>
 @endsection

@@ -124,14 +124,7 @@
     "isDynamicEntry": true,
     "src": "node_modules/@adyen/adyen-web/dist/es/zh-TW.js"
   },
-  "resources/js/app.css": {
-    "file": "assets/app-4d4d1766.css",
-    "src": "resources/js/app.css"
-  },
   "resources/js/app.js": {
-    "css": [
-      "assets/app-4d4d1766.css"
-    ],
     "dynamicImports": [
       "node_modules/@adyen/adyen-web/dist/es/ar.js",
       "node_modules/@adyen/adyen-web/dist/es/cs-CZ.js",
@@ -159,7 +152,7 @@
       "node_modules/@adyen/adyen-web/dist/es/zh-CN.js",
       "node_modules/@adyen/adyen-web/dist/es/zh-TW.js"
     ],
-    "file": "assets/app-74a55d0d.js",
+    "file": "assets/app-d03eb914.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

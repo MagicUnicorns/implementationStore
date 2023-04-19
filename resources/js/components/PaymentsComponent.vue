@@ -17,11 +17,19 @@
     export default {
         data() {
             return {
-                result: "Nix"
+                result: "Nix",
+                token: "empty"
             }
         },
         mounted() {
-            console.log('PaymentsComponent mounted.')
+            console.log('PaymentsComponent1 mounted.')
+            // Do not use token for now, authentication should be enough
+            // axios.post('/tokens/create')
+            //     .then(response => {
+            //         console.log('Token:');
+            //         console.log(response.data.token);
+            //         this.token = response.data.token;
+            //     })
         },
         methods: {
             samplePayment(){
