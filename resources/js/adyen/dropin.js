@@ -1,6 +1,6 @@
 import AdyenCheckout from '@adyen/adyen-web';
 
-export async function dropin(paymentMethodsArray, mount = true){
+export async function dropin(paymentMethodsArray, mount = true, element = 'dropin-container'){
 
     const configuration = {
       paymentMethodsResponse: await paymentMethodsArray,
@@ -46,7 +46,7 @@ export async function dropin(paymentMethodsArray, mount = true){
       };
       
       if (mount)
-        return (await AdyenCheckout(configuration)).create('dropin').mount(document.getElementById('dropin-container'))
+        return (await AdyenCheckout(configuration)).create('dropin').mount(document.getElementById(element))
 
       return await AdyenCheckout(configuration)
 }
@@ -63,7 +63,7 @@ const httpPost = (endpoint, data) =>
 
 async function makePayment(data){
   try {
-    const response = await httpPost("/api/payments", data);
+    const response = await httpPost("/payments", data);
     console.log(response);
     if (response.error)
       throw "Payment initiation failed";

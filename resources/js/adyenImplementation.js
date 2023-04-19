@@ -27,12 +27,12 @@ if(document.getElementsByClassName('dropin-container').length){
 
 async function getPaymentMethods(){
 
-    const response = await fetch('/api/paymentMethods', {
+    const response = await fetch('/paymentMethods', {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'url': '/api/paymentMethods',
+            'url': '/paymentMethods',
             "X-CSRF-Token": document.querySelector('input[name=_token]').value
         },
     })
@@ -42,7 +42,7 @@ async function getPaymentMethods(){
 
 async function submitDetails(data){
 
-    const response = await postData('/api/payments/details', data)
+    const response = await postData('/payments/details', data)
     const result = await response.json();
 
     handleServerResponse(result);

@@ -21,7 +21,7 @@ class PaymentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       $this->middleware('auth');
     }
 
     /**
@@ -52,15 +52,12 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO create payment model
+        //TODO create payment model?
 
         //TODO fill parameter array for following call correctly
         $body = PaymentsJsonBuilder::createPaymentsBody($request->all());
 
-        //error_log(json_encode($body));
-        //PaymentRequestNotification::dispatch(auth()->user()->id, json_encode($body));
         event(new PaymentRequestNotification(json_encode($body)));
-
 
         $response = Http::accept('application/json')
         ->withOptions([
@@ -72,12 +69,13 @@ class PaymentController extends Controller
         ])
         ->post(env('ADYEN_PAYMENTS_ENDPOINT',null), $body);
 
-        //TODO further fill payment model
+        //TODO further fill payment model and extend payment methods
         event(new PaymentResponseNotification(json_encode($response->json())));
         //TODO store payment in DB
 
         //if there is an action in the response frontend will handle it, if it is already authorised, 
         //we are finished and front end will show success message
+        //hence simply return response here :)
         return $response->json();
     }
 
