@@ -12,7 +12,7 @@
     export default {
         props: ['userId'],
         mounted() {
-            console.log('Component mounted, user id = ' + this.userId + '.')
+            console.log('PaymentsBodyComponent mounted, user id = ' + this.userId + '.')
             Echo.private('App.Models.User.' + this.userId)
                 .listen('TestNotification', (message) => {
                     console.log("Message is here (request component):");

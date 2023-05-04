@@ -42,7 +42,7 @@ class PaymentsJsonBuilder
         $body["merchantAccount"] = env('ADYEN_MERCHANT_ACCOUNT_NAME',null);
         
         //TODO this is still a dummy
-        $body["returnUrl"] = 'https://implemenetation.store';
+        $body["returnUrl"] = 'https://implementation.store';
 
         $body["amount"] = [
             "currency" => $currency,

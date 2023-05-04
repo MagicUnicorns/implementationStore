@@ -12,7 +12,7 @@
     export default {
         props: ['userId'],
         mounted() {
-            console.log('Component mounted, user id = ' + this.userId + '.')
+            console.log('WebhooksComponent mounted, user id = ' + this.userId + '.')
 
             var counter = 0;
 

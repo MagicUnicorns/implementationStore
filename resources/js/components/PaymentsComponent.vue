@@ -22,7 +22,7 @@
             }
         },
         mounted() {
-            console.log('PaymentsComponent1 mounted.')
+            console.log('PaymentsComponent testButton mounted.')
             // Do not use token for now, authentication should be enough
             // axios.post('/tokens/create')
             //     .then(response => {

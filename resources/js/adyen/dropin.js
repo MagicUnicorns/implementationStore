@@ -21,7 +21,8 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
           .then(response => {
             if (response.action) {
               // Drop-in handles the action object from the /payments response
-              dropin.handleAction(response.action);
+              console.log("handleAction:")
+              console.log(dropin.handleAction(response.action));
             } else {
               // Your function to show the final result to the shopper
               showFinalResult(response);
@@ -31,7 +32,8 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
             throw Error(error);
           });
         },        
-        onAdditionalData(state, dropin){
+        onAdditionalDetails(state, dropin){
+          console.log("onAdditionalDetails called: ");
           console.log(state.data);
         },
         // Any payment method specific configuration. Find the configuration specific to each payment method:  https://docs.adyen.com/payment-methods
@@ -57,6 +59,7 @@ const httpPost = (endpoint, data) =>
         headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector('input[name=_token]').value
         },
         body: JSON.stringify(data),
     }).then((response) => response.json());
