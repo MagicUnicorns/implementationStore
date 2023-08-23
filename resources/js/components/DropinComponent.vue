@@ -5,11 +5,11 @@
 
             </div> 
         </div>
-        <div class="row justify-content-center" id="tempResultId">
+        <!-- <div class="row justify-content-center" id="tempResultId">
             <div class="col-md-8">
                 {{ result }}
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -19,7 +19,7 @@
     export default {
         data() {
             return {
-                result: "Nix"
+                // result: "Nix"
             }
         },
         mounted() {

@@ -1,4 +1,3 @@
-#/node_modules this should not be added to repo!
 /public/build
 /public/hot
 /public/storage

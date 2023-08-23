@@ -35,6 +35,7 @@ class PaymentsDetailsController extends Controller
             $request->post(),
         );
 
+        //error_log(json_encode($response->json()));
         return $response->json();
     }
 }

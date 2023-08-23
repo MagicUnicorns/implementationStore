@@ -22,7 +22,7 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
             if (response.action) {
               // Drop-in handles the action object from the /payments response
               console.log("handleAction:")
-              console.log(dropin.handleAction(response.action));
+              dropin.handleAction(response.action);
             } else {
               // Your function to show the final result to the shopper
               showFinalResult(response);
@@ -35,6 +35,8 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
         onAdditionalDetails(state, dropin){
           console.log("onAdditionalDetails called: ");
           console.log(state.data);
+          const response = submitDetails(state.data)
+          .then(response => handleServerResponse(response));
         },
         // Any payment method specific configuration. Find the configuration specific to each payment method:  https://docs.adyen.com/payment-methods
         // For example, this is 3D Secure configuration for cards:
@@ -76,7 +78,40 @@ async function makePayment(data){
   }
 }
 
+async function submitDetails(data){
+  try{
+    const response = await httpPost("/payments/details", data);
+    console.log("/payments/details response:");
+    console.log(response);
+    if(response.error)
+      throw "/payments/details call failed!"
+    return response;
+  } catch (message){
+    return console.error(message);
+  }
+}
+
 function showFinalResult(res) {
+  console.log("resultCode+::");
+  console.log(res.resultCode)
+  switch (res.resultCode) {
+      case "Authorised":
+          window.location.href = "/result/success";
+          break;
+      case "Pending":
+      case "Received":
+          window.location.href = "/result/pending";
+          break;
+      case "Refused":
+          window.location.href = "/result/failed";
+          break;
+      default:
+          window.location.href = "/result/error";
+          break;
+  }
+}
+
+function handleServerResponse(res, _component) {
   switch (res.resultCode) {
       case "Authorised":
           window.location.href = "/result/success";

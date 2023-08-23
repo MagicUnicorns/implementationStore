@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container">
-    {{ Auth::user() }}
-    <div class="row">
-        <div class="col-8">
+    <!-- {{ Auth::user() }} -->
+    <div class="row d-flex">
+        <div class="col-sm-12 col-md-8">
             <div class="row pt-5">
                 <dropin-component></dropin-component>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-sm-12 col-md-4">
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
@@ -18,11 +18,11 @@
                     </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        @auth
-                        <payments-body-component user-id="{{ Auth::user()->id }}"></payments-body-component> 
-                        @endauth
-                    </div>
+                        <div class="accordion-body">
+                            @auth
+                            <payments-body-component user-id="{{ Auth::user()->id }}"></payments-body-component> 
+                            @endauth
+                        </div>
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -32,11 +32,11 @@
                     </button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        @auth
-                        <payments-response-component user-id="{{ Auth::user()->id }}"></payments-response-component>
-                        @endauth
-                    </div>
+                        <div class="accordion-body">
+                            @auth
+                            <payments-response-component user-id="{{ Auth::user()->id }}"></payments-response-component>
+                            @endauth
+                        </div>
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -56,9 +56,10 @@
             </div>
         </div>
     </div>
-    <div class="row pt-5">
+    <!--For testing simple payment enable this, this will show a button which sends a test payments call to Adyen 
+        <div class="row pt-5">
         <payments-component></payments-component>
-    </div>
+    </div> -->
 
 </div>
 @endsection
