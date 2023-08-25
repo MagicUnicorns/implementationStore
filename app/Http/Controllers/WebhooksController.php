@@ -51,9 +51,10 @@ class WebhooksController extends Controller
                 'referenceId' => $type,
                 'type' => $type,
                 'body' => $content,
+                'headers' => json_encode(getallheaders()),
                 'hmacSignature' => $request->header('hmacsignature'),
             ]);
-            //TODO handle webhook
+            //TODO handle webhook make sure to first send the response back to Adyen before you process the webhook
         }
         elseif($type ==='psp'){
                 
@@ -61,18 +62,31 @@ class WebhooksController extends Controller
                 'referenceId' => $type,
                 'type' => $type,
                 'body' => $content,
+                'headers' => json_encode(getallheaders()),
                 'hmacSignature' => 'in Body',
             ]);
-            //TODO handle webhook
+            //TODO handle webhook make sure to first send the response back to Adyen before you process the webhook
+        }
+        elseif ($type ==='oob') {
+            //handle out of band authentication
+            Webhook::create([
+                'referenceId' => $type,
+                'type' => $type,
+                'body' => $content,
+                'headers' => json_encode(getallheaders()),
+                'hmacSignature' => $request->header('hmacsignature')
+            ]);
+
+            //TODO handle webhook make sure to first send the response back to Adyen before you process the webhook
         }
         else{
             //we should never land here
-            //TODO handle this?
+            //TODO handle this? Maybe we just want to ignore everything else
         }
 
         event(new WebhookNotification(json_encode($content)));
 
-        //middleware overrides return value, so do not change here double check at VerifyNotification Middelware
+        //middleware overrides return value, so do not change here double check at VerifyWebhook Middelware
         return response('[accepted]', 200);
     }
 }
