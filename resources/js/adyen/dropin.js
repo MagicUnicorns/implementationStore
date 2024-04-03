@@ -17,6 +17,8 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
         },
         onSubmit(state, dropin){
           console.log(state.data);
+          dropin.setStatus('loading'); // start the loading state
+          dropin.setStatus('ready'); // set back to the initial state
           makePayment(state.data)
           .then(response => {
             if (response.action) {
@@ -25,7 +27,7 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
               dropin.handleAction(response.action);
             } else {
               // Your function to show the final result to the shopper
-              showFinalResult(response);
+              showFinalResult(response, dropin);
             }
           })
           .catch(error => {
@@ -44,7 +46,11 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
           card: {
             hasHolderName: true,
             holderNameRequired: true,
-            billingAddressRequired: true
+            billingAddressRequired: true,
+            clickToPayConfiguration: {
+              merchantDisplayName: 'YOUR_MERCHANT_NAME',
+              shopperEmail: 'sebastian.lerch+ctp01@adyen.com'
+            }
           }
         }
       };
@@ -68,6 +74,7 @@ const httpPost = (endpoint, data) =>
 
 async function makePayment(data){
   try {
+    console.log(data)
     const response = await httpPost("/payments", data);
     console.log(response);
     if (response.error)
@@ -91,23 +98,31 @@ async function submitDetails(data){
   }
 }
 
-function showFinalResult(res) {
+function showFinalResult(res, dropin) {
   console.log("resultCode+::");
   console.log(res.resultCode)
   switch (res.resultCode) {
       case "Authorised":
-          window.location.href = "/result/success";
-          break;
+        //window.location.href = "/result/success";
+        // Show a success message
+        dropin.setStatus('success');
+        dropin.setStatus('success', { message: 'Payment successful!' });
+        break;
       case "Pending":
       case "Received":
-          window.location.href = "/result/pending";
-          break;
+        // Set a loading state
+        dropin.setStatus('loading'); // start the loading state
+        dropin.setStatus('ready'); // set back to the initial state
+        break;
       case "Refused":
-          window.location.href = "/result/failed";
-          break;
+        dropin.setStatus('error');
+        dropin.setStatus('error', { message: 'Something went wrong payment was refused.'});
+        break;
       default:
-          window.location.href = "/result/error";
-          break;
+        // Show an error message
+        dropin.setStatus('error');
+        dropin.setStatus('error', { message: 'Something went wrong.'});
+        break;
   }
 }
 

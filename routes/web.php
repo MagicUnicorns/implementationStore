@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Events\PaymentRequestNotification;
+use App\Events\TestNotification;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::delete('/profile/{id}', [App\Http\Controllers\MerchantProfileController::
 Route::post('/profile', [App\Http\Controllers\MerchantProfileController::class, 'store'])->name('profile.store');
 
 Route::get('/dropin', [App\Http\Controllers\DropinController::class, 'index'])->name('dropin');
+Route::get('/dropin-ctp', [App\Http\Controllers\DropinControllerCtp::class, 'index'])->name('dropin-ctp');
+
 Route::get('/components', [App\Http\Controllers\ComponentsController::class, 'index'])->name('components');
 Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->name('api');
 

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class DropinController extends Controller
 {
-        /**
+    /**
      * Create a new controller instance.
      *
      * @return void
