@@ -47,10 +47,10 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
             hasHolderName: true,
             holderNameRequired: true,
             billingAddressRequired: true,
-            clickToPayConfiguration: {
-              merchantDisplayName: 'YOUR_MERCHANT_NAME',
-              shopperEmail: 'sebastian.lerch+ctp01@adyen.com'
-            }
+            // clickToPayConfiguration: {
+            //   merchantDisplayName: 'YOUR_MERCHANT_NAME',
+            //   shopperEmail: 'sebastian.lerch+ctp01@adyen.com'
+            // }
           }
         }
       };
@@ -105,7 +105,7 @@ function showFinalResult(res, dropin) {
       case "Authorised":
         //window.location.href = "/result/success";
         // Show a success message
-        dropin.setStatus('success');
+        // dropin.setStatus('success');
         dropin.setStatus('success', { message: 'Payment successful!' });
         break;
       case "Pending":

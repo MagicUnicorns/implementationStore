@@ -9,8 +9,9 @@
                 <dropin-component></dropin-component>
             </div>
         </div>
-        
+
         @include('util.message-sidebar')
+        
     </div>
     <!--For testing simple payment enable this, this will show a button which sends a test payments call to Adyen 
         <div class="row pt-5">

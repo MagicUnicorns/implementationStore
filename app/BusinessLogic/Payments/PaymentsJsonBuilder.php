@@ -194,7 +194,7 @@ class PaymentsJsonBuilder
             if(array_key_exists('shopperEmail', $paymentsData)){
                 $returnArray['shopperEmail'] = $paymentsData['shopperEmail'];
             }
-            $returnArray['shopperEmail'] = "sebastian.lerch+ctp01@adyen.com"; //remove this
+            //$returnArray['shopperEmail'] = "sebastian.lerch+ctp01@adyen.com"; //remove this
 
             if(array_key_exists('shopperIP', $paymentsData)){
                 $returnArray['shopperIP'] = $paymentsData['shopperIP'];

@@ -17,6 +17,6 @@
         <div class="row pt-5">
         <payments-component></payments-component>
     </div> -->
-
 </div>
+
 @endsection
