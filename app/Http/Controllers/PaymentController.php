@@ -6,6 +6,7 @@ use App\Models\Payment;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 use App\BusinessLogic\Payments\PaymentsJsonBuilder;
 
@@ -52,10 +53,17 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO create payment model?
+        $payment = new Payment;
 
+        //error_log(json_encode($request->all()));
         //TODO fill parameter array for following call correctly
         $body = PaymentsJsonBuilder::createPaymentsBody($request->all());
+
+        $payment->request = json_encode($body);
+        $payment->reference = Str::uuid();
+
+        //TODO give the user model an organisation id and use this here to make sure all users of an organisation can see the payment
+        $payment->user_id = auth()->user()->id;
 
         event(new PaymentRequestNotification(json_encode($body)));
 
@@ -69,13 +77,17 @@ class PaymentController extends Controller
         ])
         ->post(env('ADYEN_PAYMENTS_ENDPOINT',null), $body);
 
-        //TODO further fill payment model and extend payment methods
+        $payment->response = json_encode($response->json());
+        $payment->pspreference = $response['pspReference'];
+        $payment->resultCode = $response['resultCode'];
+
         event(new PaymentResponseNotification(json_encode($response->json())));
-        //TODO store payment in DB
+        
+        $payment->save();
 
         //if there is an action in the response frontend will handle it, if it is already authorised, 
         //we are finished and front end will show success message
-        //hence simply return response here :)
+        //hence for both cases simply return response here :)
         return $response->json();
     }
 
