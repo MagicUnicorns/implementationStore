@@ -22,6 +22,12 @@ app.component('payments-body-component', PaymentsBodyComponent);
 import PaymentsResponseComponent from './components/PaymentsResponseComponent.vue';
 app.component('payments-response-component', PaymentsResponseComponent);
 
+import PaymentsDetailsResponseComponent from './components/PaymentsDetailsResponseComponent.vue';
+app.component('payments-details-response-component', PaymentsDetailsResponseComponent);
+
+import PaymentsDetailsRequestComponent from './components/PaymentsDetailsRequestComponent.vue';
+app.component('payments-details-request-component', PaymentsDetailsRequestComponent);
+
 import PaymentsComponent from './components/PaymentsComponent.vue';
 app.component('payments-component', PaymentsComponent);
 

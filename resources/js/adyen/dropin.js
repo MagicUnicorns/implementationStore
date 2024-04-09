@@ -38,7 +38,7 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
           console.log("onAdditionalDetails called: ");
           console.log(state.data);
           const response = submitDetails(state.data)
-          .then(response => handleServerResponse(response));
+          .then(response => showFinalResult(response, dropin));
         },
         // Any payment method specific configuration. Find the configuration specific to each payment method:  https://docs.adyen.com/payment-methods
         // For example, this is 3D Secure configuration for cards:
