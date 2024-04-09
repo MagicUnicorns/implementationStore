@@ -32,6 +32,12 @@ Route::patch('/profile/{id}', [App\Http\Controllers\MerchantProfileController::c
 Route::delete('/profile/{id}', [App\Http\Controllers\MerchantProfileController::class, 'destroy'])->name('profile.destroy');
 Route::post('/profile', [App\Http\Controllers\MerchantProfileController::class, 'store'])->name('profile.store');
 
+Route::get('/user/create', [App\Http\Controllers\UserController::class, 'create'])->name('user.create');
+Route::get('/user/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+Route::delete('/user/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.destroy');
+Route::post('/user', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+Route::patch('/user/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+
 Route::get('/dropin', [App\Http\Controllers\DropinController::class, 'index'])->name('dropin');
 Route::get('/dropin-ctp', [App\Http\Controllers\DropinControllerCtp::class, 'index'])->name('dropin-ctp');
 

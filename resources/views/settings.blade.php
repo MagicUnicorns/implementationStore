@@ -65,6 +65,48 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+    <hr>
+    <h2>Users</h2>
+    <div class="row">
+        <!-- Settings {{ $user->username }} -->
+        <a href="{{ route('user.create') }}" class="btn btn-primary btn-lg btn-block" role="button">Create new User</a>
+    </div>
+    <div class="row">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>image</th>
+                    <th style="text-align: right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($user->organization->users as $user)
+                <tr>
+                    <td>{{$user->name}}</td>
+                    <td style="text-align: right" width="20%">
+                        <div class = row>
+                            <div class="col-6">
+                                <a href="{{ route('user.edit', ['id' => $user->id]) }}" class="btn btn-success btn-lg btn-block" role="button">Edit</a>
+                            </div>
+                            <div class="col-6">
+                                <form method="POST" action="{{ route('user.destroy', ['id' => $user->id]) }}">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-lg btn-block btn-danger" value="Delete">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
         <hr>
         <a href="/home" class="btn btn-primary btn-lg btn-block" role="button">Back</a>
     </div>
