@@ -24,6 +24,7 @@ class PaymentMethodsController extends Controller
      */
     public function store()
     {
+        // TODO fix hardcoded stuff here
         $response = Http::accept('application/json')
         ->withOptions([
             'proxy' => env('PROXY', null),
