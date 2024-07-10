@@ -51,9 +51,19 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/settings/' . Auth::user()->id) }}">{{ __('Settings') }}</a>
+                            <li class="nav-item dropdown">
+                                <a id="settingsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('Settings') }}</a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
+                                    <a class="dropdown-item" href="{{ url('/settings/' . Auth::user()->id) }}">
+                                        Allgemein
+                                    </a>
+                                    <a class="dropdown-item" href="{{ url('/onboarding/' . Auth::user()->organization->id) }}">
+                                        Onboarding
+                                    </a>
+                                </div>
+
                             </li>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->username }}

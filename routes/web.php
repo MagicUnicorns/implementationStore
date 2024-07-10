@@ -76,6 +76,9 @@ Route::post('/tokens/create', [App\Http\Controllers\AuthTokenController::class, 
 Route::post('/paymentMethods', [App\Http\Controllers\PaymentMethodsController::class, 'store'])->name('paymentMethods.store');
 Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
 Route::post('/payments/details', [App\Http\Controllers\PaymentsDetailsController::class, 'store'])->name('paymentsDetails.store');
+
+Route::GET('/onboarding/{id}', [App\Http\Controllers\OnboardingController::class, 'index'])->name('onboarding');
+Route::GET('/adyen-onboarding-sdk-token', [App\Http\Controllers\OnboardingSdkController::class, 'index']);
 /*
  NOTE: it is important to have routes in correct order, e.g
 
