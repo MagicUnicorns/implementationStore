@@ -37,17 +37,9 @@ app.component('dropin-component', DropinComponent);
 import WebhooksComponent from './components/WebhooksComponent.vue';
 app.component('webhooks-component', WebhooksComponent);
 
-import OnboardingComponent from './components/OnboardingComponent.vue';
+import OnboardingComponent from './components/onboarding/OnboardingComponent.vue';
 app.component('onboarding-component', OnboardingComponent);
 
-import TransferInstrumentContainerComponent from './components/TransferInstrumentContainerComponent.vue';
-app.component('transfer-instrument-container-component', TransferInstrumentContainerComponent)
-
-import ManageTransferInstrumentComponent from './components/ManageTransferInstrumentComponent.vue';
-app.component('manage-transfer-instrument-component', ManageTransferInstrumentComponent)
-
-import CreateTransferInstrumentComponent from './components/CreateTransferInstrumentComponent.vue';
-app.component('create-transfer-instrument-component', CreateTransferInstrumentComponent)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
