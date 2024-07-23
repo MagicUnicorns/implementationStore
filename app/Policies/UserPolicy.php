@@ -20,6 +20,17 @@ class UserPolicy
     {
         //
     }
+    
+    /**
+     * Determine whether the user can view admin models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAdmin(User $user)
+    {
+        return $user->in_array(Role::ADMIN, $user->role());
+    }
 
     /**
      * Determine whether the user can view the model.

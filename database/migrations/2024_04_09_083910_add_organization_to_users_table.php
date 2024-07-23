@@ -15,6 +15,16 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id')->after('username')->default(0);
 
             $table->foreign('organization_id')->references('id')->on('organizations');
+
+            $table->index('organization_id');
+        });
+
+        Schema::create('settings', function (Blueprint $table) {
+            $table->unsignedBigInteger('organization_id');
+
+            $table->foreign('organization_id')->references('id')->on('organizations');
+
+            $table->index('organization_id');
         });
 
         
@@ -26,6 +36,12 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['organization_id']);
+
+            $table->dropColumn('organization_id');
+        });
+
+        Schema::table('settings', function (Blueprint $table) {
             $table->dropForeign(['organization_id']);
 
             $table->dropColumn('organization_id');

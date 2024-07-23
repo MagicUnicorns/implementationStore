@@ -10,9 +10,11 @@
         data() {
             return {
                 selectedComponent: "manageTransferInstrumentComponent",
-                legalEntityId: "LE3293S223225R5KZBJFS8944", //TODO get this from parent
                 transferInstrumentId: ""
             }
+        },
+        props: {
+            legalEntityId: String,
         },
         created(){
             console.log(this.legalEntityId)
@@ -20,9 +22,8 @@
             
         },
         methods: {
-        changeStep(step, legalEntityId, transferInstrumentId){
+        changeStep(step, transferInstrumentId){
             this.selectedComponent = step;
-            this.legalEntityId = legalEntityId
             this.transferInstrumentId = transferInstrumentId
         }
         },

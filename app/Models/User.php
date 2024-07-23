@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Role;
+
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,6 +25,7 @@ class User extends Authenticatable //implements MustVerifyEmail
         'email',
         'username',
         'organization_id',
+        'role_id',
         'password',
     ];
 
@@ -52,28 +55,36 @@ class User extends Authenticatable //implements MustVerifyEmail
         static::created(
             function ($user) {
                 $user->setting()->create([
-                    'company_name' => $user->username,
+                    'company_name' => $user->organization->name, //TODO make this an ID
                 ]);
         });
     }
 
-    public function setting(){
+    public function setting(){ //TODO move this to the organization
 
         return $this->hasOne(Setting::class);
 
     }
 
-    public function merchantProfiles(){
+    public function merchantProfiles(){//TODO remove this
 
         return $this->hasMany(MerchantProfile::class);
 
     }
 
-    public function payments(){
+    public function payments(){ //TODO move this to the organization
         return $this->hasMany(Payment::class);
     }
 
     public function organization(){
         return $this->belongsTo(Organization::class);
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
+    public function isAdmin(){
+        return $this->role_id === Role::ADMIN;
     }
 }

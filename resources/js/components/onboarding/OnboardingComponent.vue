@@ -9,7 +9,7 @@
                 role="tab" data-bs-target="#nav-home" data-bs-toggle="tab" type="button" aria-controls="nav-home" aria-selected="true">
                 {{ tab.name }}
             </button>
-            <component :is="currentTab" class="tab"></component>
+            <component :is="currentTab" :legalEntityId="this.legalEntityId" class="tab"></component>
         </div>
     </nav>
   </template>
@@ -21,11 +21,12 @@ import ManageTransferInstrumentComponent from './transferInstrument/ManageTransf
 export default {
     components: {
         TransferInstrumentContainerComponent,
-        ManageTransferInstrumentComponent
+        ManageTransferInstrumentComponent //dummy replace by something we want here
     },
     data() {
         return {
             currentTab: 'TransferInstrumentContainerComponent',
+            legalEntityId: 'LE3293S223225R5KZBJFS8944',
             tabs: [
                 {
                     name: 'Payout Accounts',

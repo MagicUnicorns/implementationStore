@@ -126,7 +126,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes a merchant's profile
+     * Deletes a user
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */

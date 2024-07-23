@@ -68,7 +68,7 @@
                     { "policy": { "roles": ["manageTransferInstrumentComponent"] } });
             },
             changeStep(legalEntityId, transferInstrumentId){
-                this.$emit("nextStep", "createTransferInstrumentComponent", legalEntityId, transferInstrumentId);
+                this.$emit("nextStep", "createTransferInstrumentComponent", transferInstrumentId);
             }
         }
     }
