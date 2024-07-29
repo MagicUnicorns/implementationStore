@@ -15,11 +15,10 @@ class Setting extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'company_name',
-        'user_id',
+        'company_id',
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function organization(){
+        return $this->belongsTo(Organization::class);
     }
 }

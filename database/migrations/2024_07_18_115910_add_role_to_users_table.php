@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 use App\Models\Role;
 
+use App\Enums\UserRolesEnum;
+
 return new class extends Migration
 {
     /**
@@ -14,9 +16,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('role_id')->after('organization_id')->nullable()->constrained()->default(Role::USER);
-
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->enum('role', UserRolesEnum::values())->after('organization_id')->default(UserRolesEnum::User->value);
         });
     }
 
@@ -26,8 +26,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['role_id']);
-
             $table->dropColumn('role_id');
         });
     }

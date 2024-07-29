@@ -54,10 +54,10 @@
                             <li class="nav-item dropdown">
                                 <a id="settingsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('Settings') }}</a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
-                                    <a class="dropdown-item" href="{{ url('/settings/' . Auth::user()->id) }}">
+                                    <a class="dropdown-item" href="{{ url('/settings/' . Auth::user()->organization_id) }}">
                                         Allgemein
                                     </a>
-                                    <a class="dropdown-item" href="{{ url('/onboarding/' . Auth::user()->organization->id) }}">
+                                    <a class="dropdown-item" href="{{ url('/onboarding/' . Auth::user()->organization_id) }}">
                                         Onboarding
                                     </a>
                                 </div>

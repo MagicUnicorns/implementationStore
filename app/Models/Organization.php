@@ -16,9 +16,36 @@ class Organization extends Model
      */
     protected $fillable = [
         'name',
+        'organization_id'
     ];
 
+    protected static function boot(){
+        
+        parent::boot();
+
+        static::created(
+            function ($organization) {
+                $organization->setting()->create([
+                    'organization_id' => $organization->id,
+                ]);
+        });
+    }
+
+    public function payments(){
+
+        return $this->hasMany(Payment::class);
+
+    }
+
+    public function setting(){
+
+        return $this->hasOne(Setting::class);
+
+    }
+
     public function users(){
+
         return $this->hasMany(User::class);
+        
     }
 }

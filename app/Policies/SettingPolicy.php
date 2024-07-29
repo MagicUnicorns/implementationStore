@@ -30,8 +30,8 @@ class SettingPolicy
      */
     public function view(User $user, Setting $setting)
     {
-        error_log($user->id . '|' . $setting->user_id);
-        return $user->id == $setting->user_id;
+        error_log($user->organization_id . '|' . $setting->organization_id);
+        return $user->organization_id === $setting->organization_id;
     }
 
     /**
@@ -54,7 +54,7 @@ class SettingPolicy
      */
     public function update(User $user, Setting $setting)
     {
-        return $user->id == $setting->user_id;
+        return $user->organization_id == $setting->organization_id;
     }
 
     /**

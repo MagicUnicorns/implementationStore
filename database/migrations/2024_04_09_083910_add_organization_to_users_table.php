@@ -19,8 +19,8 @@ return new class extends Migration
             $table->index('organization_id');
         });
 
-        Schema::create('settings', function (Blueprint $table) {
-            $table->unsignedBigInteger('organization_id');
+        Schema::table('settings', function (Blueprint $table) {
+            $table->unsignedBigInteger('organization_id')->default(0);
 
             $table->foreign('organization_id')->references('id')->on('organizations');
 

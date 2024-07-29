@@ -54,6 +54,28 @@
                 </div>
             
 
+                <div class="row pt-2">
+                    <label for="role" class="col-md-2 col-form-label">{{ __('Role') }}</label>
+
+                    <div class="col-md-10">
+                        <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
+                            <label for="roles" class="col-md-4 control-label">Select a Role</label>
+                            <div class="col-md-6">
+
+                                <select class="form-control" id="role" name="role">
+                                @foreach ($roles as $role)
+                                <option value="{{ $role }}" {{ (old('role') ?? $user->role->value) == $role->value ? "selected":"" }}>{{ $role }}</option>
+                                @endforeach
+                                </select>
+                                @if ($errors->has('roles'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('roles') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row pt-4 col-md-2">
                     <button class="btn btn-primary">Submit</button>

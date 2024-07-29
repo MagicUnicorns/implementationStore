@@ -22,12 +22,12 @@ class SettingsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function show($user)
+    public function show($organization)
     {
-        $user = User::findOrFail($user);
+        $user = User::findOrFail(auth()->user()->id);
 
         //only allow user to view his/her own setting
-        $this->authorize('view', $user->setting);        
+        $this->authorize('view', $user->organization->setting);        
 
         return view('settings', [
             'user' => $user

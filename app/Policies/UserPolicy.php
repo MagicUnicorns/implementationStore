@@ -42,7 +42,7 @@ class UserPolicy
     public function view(User $user, User $user1)
     {
         error_log($user->id . '|' . $setting->user_id);
-        return $user->organization_id == $user1->organization_id;
+        return $user->organization_id === $user1->organization_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class UserPolicy
      */
     public function update(User $user, User $user1)
     {
-        return $user->organization_id == $user1->organization_id;
+        return $user->organization_id === $user1->organization_id;
     }
 
     /**

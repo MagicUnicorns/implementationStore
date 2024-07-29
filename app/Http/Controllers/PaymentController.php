@@ -63,9 +63,14 @@ class PaymentController extends Controller
         $payment->reference = Str::uuid();
 
         //TODO give the user model an organisation id and use this here to make sure all users of an organisation can see the payment
-        $payment->user_id = auth()->user()->id;
+        $payment->organization_id = auth()->user()->organization_id;
 
-        event(new PaymentRequestNotification(json_encode($body)));
+        //TODO proper handling of error
+        try{
+            event(new PaymentRequestNotification(json_encode($body)));
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+        }
 
         $response = Http::accept('application/json')
         ->withOptions([
@@ -80,8 +85,13 @@ class PaymentController extends Controller
         $payment->response = json_encode($response->json());
         $payment->pspreference = $response['pspReference'];
         $payment->resultCode = $response['resultCode'];
-
-        event(new PaymentResponseNotification(json_encode($response->json())));
+        
+        //TODO proper handling of error
+        try{
+            event(new PaymentResponseNotification(json_encode($response->json())));
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+        }
         
         $payment->save();
 

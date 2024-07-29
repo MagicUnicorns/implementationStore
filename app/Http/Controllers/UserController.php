@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Enums\UserRolesEnum;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Enum;
 
 class UserController extends Controller
 {
@@ -33,6 +35,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
+            'role' => ['required'],
         ]);
     }
 
@@ -43,7 +46,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('users.create', ['roles' => UserRolesEnum::cases()]);
     }
 
     /**
@@ -55,9 +58,10 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name'=>'required',
-            'username'=> 'required',
-            'email'=> 'required',
+            'username'=> ['required','unique:users,username'],
+            'email'=> ['required','unique:users,email'],
             'password' => 'required',
+            'role' => ['required', new Enum(UserRolesEnum::class)]
         ]);
 
         User::create([
@@ -65,10 +69,13 @@ class UserController extends Controller
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
-            'organization_id' => auth()->user()->organization_id
+            'organization_id' => auth()->user()->organization_id,
+            'role_id' => $data['role'],
         ]);
 
-        return redirect('settings/' . auth()->user()->id);
+        
+
+        return redirect('settings/' . auth()->user()->organization_id);
     }
 
     /**
@@ -78,11 +85,15 @@ class UserController extends Controller
      */
     public function edit(Request $request)
     {
+        
+        $user = User::find(request('id'));
         //only allow user to edit his/her own organization profile
-        $this->authorize('update', User::find(request('id')));  
+        $this->authorize('update',$user);  
 
         return view('users.edit', [
-            'user' => User::find(request('id')),
+            'user' => $user,
+            'roles' => UserRolesEnum::cases(),
+            // 'selectedRole' => $user->role->value
         ]);
     }
 
@@ -122,7 +133,7 @@ class UserController extends Controller
         //update database
         $user->update($data);
        
-        return redirect('settings/' . auth()->user()->id);
+        return redirect('settings/' . auth()->user()->organization_id);
     }
 
     /**

@@ -41,7 +41,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/settings/{user}', [App\Http\Controllers\SettingsController::class, 'show'])->name('settings.show');
+Route::get('/settings/{organization}', [App\Http\Controllers\SettingsController::class, 'show'])->name('settings.show');
 
 Route::get('/user/create', [App\Http\Controllers\UserController::class, 'create'])->name('user.create');
 Route::get('/user/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
