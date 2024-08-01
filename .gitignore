@@ -17,3 +17,4 @@ yarn-error.log
 /.vscode
 database/database.sqlite
 node_modules
+stats.html

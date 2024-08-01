@@ -5,7 +5,7 @@
  */
 
 import './bootstrap';
-import { createApp } from 'vue';
+import { createApp, defineAsyncComponent } from 'vue';
 
 //import './adyenImplementation'
 /**
@@ -16,28 +16,28 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import PaymentsBodyComponent from './components/PaymentsBodyComponent.vue';
+const PaymentsBodyComponent = defineAsyncComponent(() => import('./components/PaymentsBodyComponent.vue'));
 app.component('payments-body-component', PaymentsBodyComponent);
 
-import PaymentsResponseComponent from './components/PaymentsResponseComponent.vue';
+const PaymentsResponseComponent = defineAsyncComponent(() => import( './components/PaymentsResponseComponent.vue'));
 app.component('payments-response-component', PaymentsResponseComponent);
 
-import PaymentsDetailsResponseComponent from './components/PaymentsDetailsResponseComponent.vue';
+const PaymentsDetailsResponseComponent = defineAsyncComponent(() => import( './components/PaymentsDetailsResponseComponent.vue'));
 app.component('payments-details-response-component', PaymentsDetailsResponseComponent);
 
-import PaymentsDetailsRequestComponent from './components/PaymentsDetailsRequestComponent.vue';
+const PaymentsDetailsRequestComponent = defineAsyncComponent(() => import( './components/PaymentsDetailsRequestComponent.vue'));
 app.component('payments-details-request-component', PaymentsDetailsRequestComponent);
 
-import PaymentsComponent from './components/PaymentsComponent.vue';
+const PaymentsComponent = defineAsyncComponent(() => import( './components/PaymentsComponent.vue'));
 app.component('payments-component', PaymentsComponent);
 
-import DropinComponent from './components/DropinComponent.vue';
+const DropinComponent = defineAsyncComponent(() => import( './components/DropinComponent.vue'));
 app.component('dropin-component', DropinComponent);
 
-import WebhooksComponent from './components/WebhooksComponent.vue';
+const WebhooksComponent = defineAsyncComponent(() => import( './components/WebhooksComponent.vue'));
 app.component('webhooks-component', WebhooksComponent);
 
-import OnboardingComponent from './components/onboarding/OnboardingComponent.vue';
+const OnboardingComponent = defineAsyncComponent(() => import( './components/onboarding/OnboardingComponent.vue'));
 app.component('onboarding-component', OnboardingComponent);
 
 /**

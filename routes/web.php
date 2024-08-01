@@ -83,3 +83,6 @@ Route::get('/profile/create', [App\Http\Controllers\MerchantProfileController::c
 will never trigger the /create route as it is caught by the first one. Just reorder them ;)
 
 */
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

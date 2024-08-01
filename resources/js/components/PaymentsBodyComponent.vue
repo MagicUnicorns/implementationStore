@@ -1,7 +1,9 @@
 <template>
     <div class="request-container">
         <div class="header">
+            
             <h2>Request</h2>
+
         </div>
         <p>The <b>request</b> to the <code>/payments</code> endpoint will be shown here.</p>
         <pre class="request-code" id="request-code"></pre>

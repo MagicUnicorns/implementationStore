@@ -4,7 +4,7 @@ namespace App\Providers;
 use App\Models\User;
 use App\Policies\OnboardingPolicy;
 
-// use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,7 +25,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //not needed with laravel 10.0 any more
-        //$this->registerPolicies();
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
     }
 }
