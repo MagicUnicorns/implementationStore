@@ -15,15 +15,19 @@ class SuperAdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $organization = Organization::create([
-            'name' => 'testOrg'
+        $organization1 = Organization::create([
+            'name' => 'testOrg1'
+        ]);
+
+        $organization2 = Organization::create([
+            'name' => 'testOrg2'
         ]);
         // Creating Super Admin User
         $superAdmin = User::create([
             'name' => 'Test1 Tester', 
             'email' => 'test1@test.com',
             'username' => 'test1er',
-            'organization_id' => $organization->id,
+            'organization_id' => $organization1->id,
             'password' => Hash::make('12345678')
         ]);
         $superAdmin->assignRole('Super Admin');
@@ -33,7 +37,17 @@ class SuperAdminSeeder extends Seeder
             'name' => 'Test2 Tester', 
             'email' => 'test2@test.com',
             'username' => 'test2er',
-            'organization_id' => $organization->id,
+            'organization_id' => $organization1->id,
+            'password' => Hash::make('12345678')
+        ]);
+        $admin->assignRole('Admin');
+
+        // Creating Admin User
+        $admin = User::create([
+            'name' => 'Test22 Tester', 
+            'email' => 'test22@test.com',
+            'username' => 'test22er',
+            'organization_id' => $organization2->id,
             'password' => Hash::make('12345678')
         ]);
         $admin->assignRole('Admin');
@@ -43,7 +57,7 @@ class SuperAdminSeeder extends Seeder
             'name' => 'Test3 Tester', 
             'email' => 'test3@test.com',
             'username' => 'test3er',
-            'organization_id' => $organization->id,
+            'organization_id' => $organization1->id,
             'password' => Hash::make('12345678')
         ]);
         $productManager->assignRole('Product Manager');

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\UserRolesEnum;
+use App\Models\Scopes\OrganizationScope;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Permission\Traits\HasRoles;
 
+#[ScopedBy([OrganizationScope::class])]
 class User extends Authenticatable //implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
@@ -47,14 +48,10 @@ class User extends Authenticatable //implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'role' => UserRolesEnum::class,
     ];
 
     public function organization(){
         return $this->belongsTo(Organization::class);
     }
 
-    public function isAdmin(){
-        return $this->role === UserRolesEnum::Admin;
-    }
 }

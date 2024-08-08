@@ -2,69 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use App\Enums\UserRolesEnum;
-
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Enum;
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:create-user|edit-user|delete-user', ['only' => ['index','show']]);
+        $this->middleware('permission:create-user', ['only' => ['create','store']]);
+        $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete-user', ['only' => ['destroy']]);
     }
 
+    // /**
+    //  * Get a validator for an incoming registration request.
+    //  *
+    //  * @param  array  $data
+    //  * @return \Illuminate\Contracts\Validation\Validator
+    //  */
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //         'username' => ['required', 'string', 'max:255', 'unique:users'],
+    //         'password' => ['required', 'string', 'min:8'],
+    //         'role' => ['required'],
+    //     ]);
+    // }
+
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * Display a listing of the resource.
      */
-    protected function validator(array $data)
+    public function index(): View
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'role' => ['required'],
+        return view('users.index', [
+            'users' => User::latest('id')->paginate(10)
         ]);
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        return view('users.create', ['roles' => UserRolesEnum::cases()]);
+        return view('users.create', [
+            'roles' => Role::pluck('name')->all()
+        ]);
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'name'=>'required',
-            'username'=> ['required','unique:users,username'],
-            'email'=> ['required','unique:users,email'],
-            'password' => 'required',
-            'role' => ['required', new Enum(UserRolesEnum::class)]
-        ]);
 
-        User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'username' => $data['username'],
@@ -73,84 +73,76 @@ class UserController extends Controller
             'role_id' => $data['role'],
         ]);
 
-        
+        $user->assignRole($request->roles);
 
-        return redirect('settings/' . auth()->user()->organization_id);
+        return redirect()->route('users.index')
+                ->withSuccess('New user is added successfully.');
     }
 
     /**
-     * Edit a merchant's profile
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Display the specified resource.
      */
-    public function edit(Request $request)
+    public function show(User $user): View
     {
-        
-        $user = User::find(request('id'));
-        //only allow user to edit his/her own organization profile
-        $this->authorize('update',$user);  
+        return view('users.show', [
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(User $user): View
+    {
+        // Check Only Super Admin can update his own Profile
+        if ($user->hasRole('Super Admin')){
+            if($user->id != auth()->user()->id){
+                abort(403, 'USER DOES NOT HAVE THE RIGHT PERMISSIONS');
+            }
+        }
 
         return view('users.edit', [
             'user' => $user,
-            'roles' => UserRolesEnum::cases(),
-            // 'selectedRole' => $user->role->value
+            'roles' => Role::pluck('name')->all(),
+            'userRoles' => $user->roles->pluck('name')->all()
         ]);
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        $user = User::find(request('id'));
-
-        //only allow user to edit his/her own profile
-        $this->authorize('update', $user);  
-
-        $data = $request->validate([
-            'name'=>'required',
-            'username'=> 'required',
-            'email'=> 'required',
-        ]);
-        // if($request->image){  
-        //     $request->validate([
-        //         'image'=>['image'],
-        //     ]);
-            
-        //     //remove old file
-        //     if($merchantProfile->image != ''  && $merchantProfile->image != null){
-        //         $file_old = 'storage/' . $merchantProfile->image;
-        //         unlink($file_old);
-        //     }
-
-        //     //upload new file
-        //     $data['image'] = request('image')->store('uploads', 'public');
-
-        // }
-
-        //update database
-        $user->update($data);
-       
-        return redirect('settings/' . auth()->user()->organization_id);
-    }
-
-    /**
-     * Deletes a user
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function destroy(Request $request)
-    {
-        $user = User::find(request('id'));
-
-        //only allow user to view his/her own profile
-        $this->authorize('delete', $user);  
-
-        //remove database entry
-        User::destroy(request('id'));
+        $input = $request->all();
+ 
+        if(!empty($request->password)){
+            $input['password'] = Hash::make($request->password);
+        }else{
+            $input = $request->except('password');
+        }
         
-        return back();
+        $user->update($input);
+
+        $user->syncRoles($request->roles);
+
+        return redirect()->back()
+                ->withSuccess('User is updated successfully.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user): RedirectResponse
+    {
+        // Abort if user is Super Admin or User ID belongs to Auth User
+        if ($user->hasRole('Super Admin') || $user->id == auth()->user()->id)
+        {
+            abort(403, 'USER DOES NOT HAVE THE RIGHT PERMISSIONS');
+        }
+
+        $user->syncRoles([]);
+        $user->delete();
+        return redirect()->route('users.index')
+                ->withSuccess('User is deleted successfully.');
     }
 }

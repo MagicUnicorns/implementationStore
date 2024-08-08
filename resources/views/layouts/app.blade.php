@@ -51,6 +51,7 @@
                                 </li>
                             @endif
                         @else
+                            
                             <li class="nav-item dropdown">
                                 <a id="settingsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('Settings') }}</a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
@@ -60,6 +61,12 @@
                                     <a class="dropdown-item" href="{{ url('/onboarding/' . Auth::user()->organization_id) }}">
                                         Onboarding
                                     </a>
+                                    @canany(['create-role', 'edit-role', 'delete-role'])
+                                        <a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a>
+                                    @endcanany
+                                    @canany(['create-user', 'edit-user', 'delete-user'])
+                                        <a class="dropdown-item" href="{{ route('users.index') }}">Manage Users</a>
+                                    @endcanany
                                 </div>
 
                             </li>
