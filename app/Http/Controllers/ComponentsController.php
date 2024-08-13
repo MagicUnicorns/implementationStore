@@ -23,6 +23,6 @@ class ComponentsController extends Controller
      */
     public function index()
     {
-        return view('components');
+        return view('payments.components');
     }
 }

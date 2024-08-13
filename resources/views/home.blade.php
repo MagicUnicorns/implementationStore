@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title1</h5>
                     <p class="card-text">Card text1</p>
-                    <a href="{{ route('dropin') }}" class="btn btn-primary btn-lg btn-block" role="button">Dropin</a>
+                    <a href="{{ route('payments.dropin') }}" class="btn btn-primary btn-lg btn-block" role="button">Dropin</a>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title2</h5>
                     <p class="card-text">Card text2</p>
-                    <a href="{{ route('components') }}" class="btn btn-primary btn-lg btn-block" role="button">Components</a>
+                    <a href="{{ route('payments.components') }}" class="btn btn-primary btn-lg btn-block" role="button">Components</a>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title3</h5>
                     <p class="card-text">Card text3</p>
-                    <a href="{{ route('api') }}" class="btn btn-primary btn-lg btn-block" role="button">API Only</a>
+                    <a href="{{ route('payments.api') }}" class="btn btn-primary btn-lg btn-block" role="button">API Only</a>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Card title1</h5>
                         <p class="card-text">Card text1</p>
-                        <a href="{{ route('dropin-ctp') }}" class="btn btn-primary btn-lg btn-block" role="button">Dropin Click to Pay</a>
+                        <a href="{{ route('payments.dropin-ctp') }}" class="btn btn-primary btn-lg btn-block" role="button">Dropin Click to Pay</a>
                     </div>
                 </div>
             </div>

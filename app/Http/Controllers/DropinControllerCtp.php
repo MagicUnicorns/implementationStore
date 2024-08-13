@@ -23,6 +23,6 @@ class DropinControllerCtp extends Controller
      */
     public function index()
     {
-        return view('dropin-ctp');
+        return view('payments.dropin-ctp');
     }
 }

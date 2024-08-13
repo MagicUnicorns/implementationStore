@@ -148,6 +148,6 @@ class PaymentController extends Controller
 
     public function result(Request $request){
         $type = $request->type;
-        return view('result')->with('type', $type);
+        return view('payments.result')->with('type', $type);
     }
 }

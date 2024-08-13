@@ -46,19 +46,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/settings/{organization}', [App\Http\Controllers\SettingsController::class, 'show'])->name('settings.show');
 
-Route::get('/user/create', [App\Http\Controllers\UserController::class, 'create'])->name('user.create');
-Route::get('/user/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
-Route::delete('/user/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.destroy');
-Route::post('/user', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
-Route::patch('/user/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+Route::get('/dropin', [App\Http\Controllers\DropinController::class, 'index'])->name('payments.dropin');
+Route::get('/dropin-ctp', [App\Http\Controllers\DropinControllerCtp::class, 'index'])->name('payments.dropin-ctp');
 
-Route::get('/dropin', [App\Http\Controllers\DropinController::class, 'index'])->name('dropin');
-Route::get('/dropin-ctp', [App\Http\Controllers\DropinControllerCtp::class, 'index'])->name('dropin-ctp');
+Route::get('/components', [App\Http\Controllers\ComponentsController::class, 'index'])->name('payments.components');
+Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->name('payments.api');
 
-Route::get('/components', [App\Http\Controllers\ComponentsController::class, 'index'])->name('components');
-Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->name('api');
-
-Route::get('/result/{type}', [App\Http\Controllers\PaymentController::class,'result'])->name('result');
+Route::get('/result/{type}', [App\Http\Controllers\PaymentController::class,'result'])->name('payments.result');
 
 //TODO temporary for testing remove this line, it is defined in api.php!
 // Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store']);
@@ -74,7 +68,7 @@ Route::post('/paymentMethods', [App\Http\Controllers\PaymentMethodsController::c
 Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
 Route::post('/payments/details', [App\Http\Controllers\PaymentsDetailsController::class, 'store'])->name('paymentsDetails.store');
 
-Route::GET('/onboarding/{id}', [App\Http\Controllers\OnboardingController::class, 'index'])->name('onboarding')->middleware(['auth']);
+Route::GET('/onboarding/{id}', [App\Http\Controllers\OnboardingController::class, 'index'])->name('onboardings.onboarding');
 
 Route::GET('/adyen-onboarding-sdk-token', [App\Http\Controllers\OnboardingSdkController::class, 'index']);
 /*
@@ -86,7 +80,6 @@ Route::get('/profile/create', [App\Http\Controllers\MerchantProfileController::c
 will never trigger the /create route as it is caught by the first one. Just reorder them ;)
 
 */
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

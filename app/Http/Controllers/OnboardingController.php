@@ -25,6 +25,6 @@ class OnboardingController extends Controller
      */
     public function index(Request $request)
     {
-        return view('onboarding');
+        return view('onboardings.onboarding');
     }
 }

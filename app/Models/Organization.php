@@ -28,6 +28,16 @@ class Organization extends Model
                 $organization->setting()->create([
                     'organization_id' => $organization->id,
                 ]);
+
+                if($organization->id > 1){
+                    $session_team_id = getPermissionsTeamId();
+                    // set actual new team_id to package instance
+                    setPermissionsTeamId($organization);
+                    // get the admin user and assign roles/permissions on new team model
+                    User::find(1)->assignRole('Super Admin');
+                    // restore session team_id to package instance using temporary value stored above
+                    setPermissionsTeamId($session_team_id);
+                }
         });
     }
 

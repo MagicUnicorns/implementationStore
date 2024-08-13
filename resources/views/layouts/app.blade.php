@@ -55,16 +55,13 @@
                             <li class="nav-item dropdown">
                                 <a id="settingsDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('Settings') }}</a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
-                                    <a class="dropdown-item" href="{{ url('/settings/' . Auth::user()->organization_id) }}">
-                                        Allgemein
-                                    </a>
                                     <a class="dropdown-item" href="{{ url('/onboarding/' . Auth::user()->organization_id) }}">
                                         Onboarding
                                     </a>
-                                    @canany(['create-role', 'edit-role', 'delete-role'])
+                                    @canany(['create-role', 'edit-role', 'delete-role'], Auth::user()->organization_id)
                                         <a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a>
                                     @endcanany
-                                    @canany(['create-user', 'edit-user', 'delete-user'])
+                                    @canany(['create-user', 'edit-user', 'delete-user'], Auth::user()->organization_id)
                                         <a class="dropdown-item" href="{{ route('users.index') }}">Manage Users</a>
                                     @endcanany
                                 </div>

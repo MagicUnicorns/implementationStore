@@ -7,6 +7,8 @@ use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+// use Illuminate\Support\Facades\Log;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -25,7 +27,14 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         Gate::before(function ($user, $ability) {
-            return $user->hasRole('Super Admin') ? true : null;
+            // $currentTeamId = $user->getTeamIdAttribute() ?? null;
+
+            if ($user->hasRole('Super Admin')) {
+                // Log::error('Super admin is true');
+                return true; // Bypass all other checks within the team context
+                
+            }
+            // Log::error("Super admin is false, current team_id is $currentTeamId user_id is $user->id");
         });
     }
 }

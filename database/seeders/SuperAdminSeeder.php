@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Organization;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Log;
+
 class SuperAdminSeeder extends Seeder
 {
     /**
@@ -18,18 +20,18 @@ class SuperAdminSeeder extends Seeder
         $organization1 = Organization::create([
             'name' => 'testOrg1'
         ]);
-
-        $organization2 = Organization::create([
-            'name' => 'testOrg2'
-        ]);
         // Creating Super Admin User
         $superAdmin = User::create([
             'name' => 'Test1 Tester', 
             'email' => 'test1@test.com',
             'username' => 'test1er',
             'organization_id' => $organization1->id,
-            'password' => Hash::make('12345678')
+            'password' => Hash::make('12345678',)
         ]);
+        // session(['team_id' => '1']);
+        Log::error('This is an error message.');
+        // session(['organization_id' => '2']);
+        setPermissionsTeamId($organization1->id);
         $superAdmin->assignRole('Super Admin');
 
         // Creating Admin User
@@ -42,6 +44,26 @@ class SuperAdminSeeder extends Seeder
         ]);
         $admin->assignRole('Admin');
 
+        // Creating Product Manager User
+        $productManager = User::create([
+            'name' => 'Test3 Tester', 
+            'email' => 'test3@test.com',
+            'username' => 'test3er',
+            'organization_id' => $organization1->id,
+            'password' => Hash::make('12345678')
+        ]);
+        $productManager->assignRole('Product Manager', $organization1->id);
+
+        /**
+         * Create a second organization with an Admin user
+         */
+
+        $organization2 = Organization::create([
+            'name' => 'testOrg2'
+        ]);
+
+        setPermissionsTeamId($organization2->id);
+
         // Creating Admin User
         $admin = User::create([
             'name' => 'Test22 Tester', 
@@ -51,15 +73,5 @@ class SuperAdminSeeder extends Seeder
             'password' => Hash::make('12345678')
         ]);
         $admin->assignRole('Admin');
-
-        // Creating Product Manager User
-        $productManager = User::create([
-            'name' => 'Test3 Tester', 
-            'email' => 'test3@test.com',
-            'username' => 'test3er',
-            'organization_id' => $organization1->id,
-            'password' => Hash::make('12345678')
-        ]);
-        $productManager->assignRole('Product Manager');
     }
 }

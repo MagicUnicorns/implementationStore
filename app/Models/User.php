@@ -6,6 +6,7 @@ use App\Models\Scopes\OrganizationScope;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -16,7 +17,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable //implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -52,6 +53,11 @@ class User extends Authenticatable //implements MustVerifyEmail
 
     public function organization(){
         return $this->belongsTo(Organization::class);
+    }
+
+    public function getTeamIdAttribute()
+    {
+        return $this->organization_id;
     }
 
 }

@@ -35,6 +35,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
+            \App\Http\Middleware\OrganizationPermission::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
@@ -75,5 +76,10 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddelware = [
         'admin' => \App\Http\Middleware\IsAdmin::class,
+    ];
+
+    protected $middlewarePriority = [
+        \App\Http\Middleware\OrganizationPermission::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
     ];
 }
