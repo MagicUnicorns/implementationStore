@@ -24,7 +24,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('organization_id')->references('id')->on('organizations');
-
             $table->index('organization_id');
         });
     }

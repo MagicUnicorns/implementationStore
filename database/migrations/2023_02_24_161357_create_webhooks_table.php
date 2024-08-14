@@ -19,7 +19,11 @@ return new class extends Migration
             $table->string('type');
             $table->longText('body');
             $table->string('hmacSignature');
+            $table->unsignedBigInteger('organization_id');
             $table->timestamps();
+
+            $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->index('organization_id');
         });
     }
 

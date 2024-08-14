@@ -29,6 +29,11 @@ class Organization extends Model
                     'organization_id' => $organization->id,
                 ]);
 
+                //TODO make this nice
+                /**
+                 * This assigns role "Super Admin" for each and every organization to user with id 1
+                 * Make this great ;)
+                 */
                 if($organization->id > 1){
                     $session_team_id = getPermissionsTeamId();
                     // set actual new team_id to package instance

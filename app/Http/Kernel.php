@@ -65,7 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'hmac' => \App\Http\Middleware\VerifyWebhook::class,
-        'admin' => \App\Http\Middleware\IsAdmin::class,
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
@@ -75,7 +74,6 @@ class Kernel extends HttpKernel
      * 
      */
     protected $routeMiddelware = [
-        'admin' => \App\Http\Middleware\IsAdmin::class,
     ];
 
     protected $middlewarePriority = [

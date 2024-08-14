@@ -16,7 +16,6 @@ class OrganizationPermission
     public function handle(Request $request, Closure $next): Response
     {
         if(!empty(auth()->user())){
-            // session value set on login
             setPermissionsTeamId(auth()->user()->organization_id);
         }
 
