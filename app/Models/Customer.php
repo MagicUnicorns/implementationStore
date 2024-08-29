@@ -8,10 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Model;
 
-use Spatie\Permission\Models\Role as SpatieRole;
-
 #[ScopedBy([OrganizationScope::class])]
-class Role extends SpatieRole
+class Customer extends Model
 {
     use HasFactory;
 

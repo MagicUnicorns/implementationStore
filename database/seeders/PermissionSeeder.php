@@ -20,9 +20,12 @@ class PermissionSeeder extends Seeder
             'create-user',
             'edit-user',
             'delete-user',
-            'create-product',
-            'edit-product',
-            'delete-product'
+            'create-customer',
+            'edit-customer',
+            'delete-customer',
+            'create-patient',
+            'edit-patient',
+            'delete-patient',
          ];
  
           // Looping and Inserting Array's Permissions into Permission Table

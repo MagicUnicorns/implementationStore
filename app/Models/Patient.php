@@ -5,15 +5,17 @@ namespace App\Models;
 use App\Models\Scopes\OrganizationScope;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Model;
-
-use Spatie\Permission\Models\Role as SpatieRole;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 
 #[ScopedBy([OrganizationScope::class])]
-class Role extends SpatieRole
+class Patient extends Model
 {
     use HasFactory;
+
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
 
     public function organization(){
         return $this->belongsTo(Organization::class);

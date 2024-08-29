@@ -63,4 +63,16 @@ class Organization extends Model
         return $this->hasMany(User::class);
         
     }
+
+    public function customers(){
+
+        return $this->hasMany(Customer::class);
+        
+    }
+
+    public function patients(){
+
+        return $this->hasMany(Patient::class);
+        
+    }
 }

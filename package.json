@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@adyen/adyen-web": "^5.32.0",
-        "@adyen/kyc-components": "^3.16.1"
+        "@adyen/kyc-components": "^3.16.1",
+        "vuedraggable": "^2.24.3"
     }
 }

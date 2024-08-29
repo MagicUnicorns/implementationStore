@@ -13,6 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url('/css/adyen.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -90,11 +91,22 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4">
-            
-            @yield('content')
+        <!-- Main content wrapper -->
+        <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky">
+                    @include('partials.sidebar')
+                </div>
+            </nav>
 
-        </main>
+            <!-- Page Content -->
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                @yield('content')
+            </main>
+        </div>
+    </div>
     </div>
 </body>
 </html>

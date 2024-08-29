@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PatientController;
+
+use App\Http\Controllers\DynamicModelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,4 +90,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
+    'patients' => PatientController::class,
+    'customers' => CustomerController::class,
 ]);
+
+Route::get('/list/{modelName}', [DynamicModelController::class, 'index']);
+

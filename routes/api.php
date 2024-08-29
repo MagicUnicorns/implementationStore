@@ -32,6 +32,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/webhooks/{type}', [App\Http\Controllers\WebhooksController::class, 'store'])->middleware(VerifyWebhook::class)->name('webhooks.store');
 
+/**
+ * Login and logout for the oauth session
+ */
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
 

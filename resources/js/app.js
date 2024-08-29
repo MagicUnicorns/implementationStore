@@ -40,6 +40,9 @@ app.component('webhooks-component', WebhooksComponent);
 const OnboardingComponent = defineAsyncComponent(() => import( './components/onboarding/OnboardingComponent.vue'));
 app.component('onboarding-component', OnboardingComponent);
 
+const TestComponent = defineAsyncComponent(() => import( './components/TestComponent.vue'));
+app.component('test-component', TestComponent);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

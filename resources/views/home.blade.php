@@ -74,7 +74,10 @@
         </div>
         <!-- <div class="row pt-5">
                 <payments-component></payments-component>
-        </div> -->
+        </div> -->        
+        <div class="row pt-5">
+                <test-component></test-component>
+        </div>
     </div>
 </div>
 

@@ -18,30 +18,43 @@ class RoleSeeder extends Seeder
         $admin = Role::create(['name' => 'Admin', 'organization_id' => 1]);
         $admin1 = Role::create(['name' => 'Admin', 'organization_id' => 2]);
         $productManager = Role::create(['name' => 'Product Manager', 'organization_id' => 1]);
-        $productManager = Role::create(['name' => 'Product Manager', 'organization_id' => 2]);
+        $productManager1 = Role::create(['name' => 'Product Manager', 'organization_id' => 2]);
 
         $admin->givePermissionTo([
             'create-user',
             'edit-user',
             'delete-user',
-            'create-product',
-            'edit-product',
-            'delete-product'
+            'create-customer',
+            'edit-customer',
+            'delete-customer',            
+            'create-patient',
+            'edit-patient',
+            'delete-patient',
+            
         ]);
 
         $admin1->givePermissionTo([
             'create-user',
             'edit-user',
             'delete-user',
-            'create-product',
-            'edit-product',
-            'delete-product'
+            'create-customer',
+            'edit-customer',
+            'delete-customer',            
+            'create-patient',
+            'edit-patient',
+            'delete-patient',
         ]);
 
-        $productManager->givePermissionTo([
-            'create-product',
-            'edit-product',
-            'delete-product'
-        ]);
+        // $productManager->givePermissionTo([
+        //     'create-product',
+        //     'edit-product',
+        //     'delete-product'
+        // ]);
+
+        // $productManager1->givePermissionTo([
+        //     'create-product',
+        //     'edit-product',
+        //     'delete-product'
+        // ]);
     }
 }
