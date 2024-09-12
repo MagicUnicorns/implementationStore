@@ -21,23 +21,6 @@ class UserController extends Controller
         $this->middleware('permission:delete-user', ['only' => ['destroy']]);
     }
 
-    // /**
-    //  * Get a validator for an incoming registration request.
-    //  *
-    //  * @param  array  $data
-    //  * @return \Illuminate\Contracts\Validation\Validator
-    //  */
-    // protected function validator(array $data)
-    // {
-    //     return Validator::make($data, [
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //         'username' => ['required', 'string', 'max:255', 'unique:users'],
-    //         'password' => ['required', 'string', 'min:8'],
-    //         'role' => ['required'],
-    //     ]);
-    // }
-
     /**
      * Display a listing of the resource.
      */
@@ -54,7 +37,7 @@ class UserController extends Controller
     public function create(): View
     {
         return view('users.create', [
-            'roles' => Role::pluck('name')->all()
+            'roles' => Role::pluck('name')->all() //TODO limit to same the current user has?
         ]);
     }
 

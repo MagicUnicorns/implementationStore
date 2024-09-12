@@ -6,13 +6,13 @@
         Error: {{ error }}
       </div>
       <div v-if="!loading && !error">
-        <DynamicTable :columns="tableColumns" :data="tableData" />
+        <DynamicListComponent :columns="tableColumns" :data="tableData" :action="onRowClick" />
       </div>
     </div>
   </template>
   
   <script>
-  import DynamicListComponent from './dynamic/DynamicListComponent.vue';
+  import DynamicListComponent from '../dynamic/DynamicListComponent.vue';
   
   export default {
     components: {
@@ -31,10 +31,11 @@
     },
     methods: {
         async fetchData(){
-            try{
-                const response = await axios.get('/list/customer');
-                this.tableData = response.tableData;
-                this.tableColumns = response.tableColumns;
+          try{
+                axios.get('/list/customer').then(response => {
+                    this.tableData = response.data.tableData;
+                    this.tableColumns = response.data.tableColumns;
+                })
             }
             catch(error){
                 this.error = 'Failed to load data';
@@ -42,7 +43,14 @@
             finally {
                 this.loading = false;
             }
-        }
+        },
+        onRowClick(id){
+            window.location.href = `/customers/${id}`;
+        },
+    },
+    mounted() {
+      console.log('1234/');
+      console.log('Parent function:', this.onRowClick); // Should log the function definition
     }
   };
   </script>

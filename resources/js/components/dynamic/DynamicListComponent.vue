@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="row in sortedData" :key="row.id">
+          <tr v-for="row in sortedData" :key="row.id" @click="() => action(row.id)">
             <td v-for="column in columns">
               {{row[column]}}
             </td>
@@ -38,6 +38,10 @@
         type: Array,
         required: true,
       },
+      action: {
+        type: Function,
+        required: true,
+      }
     },
     data() {
       return {
@@ -45,11 +49,12 @@
         sortDirection: 'asc',
       };
     },
-//     mounted() {
-//     console.log('Component has been mounted');
-//     console.log(this.columns);
-//     console.log(this.data);
-//   },
+    mounted() {
+    console.log('Component has been mounted');
+    // console.log(this.columns);
+    // console.log(this.data);
+    console.log(this.action);
+  },
     computed: {
       sortedData() {
         if (!this.sortKey) return this.data;
