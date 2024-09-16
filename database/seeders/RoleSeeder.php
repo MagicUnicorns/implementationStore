@@ -30,7 +30,6 @@ class RoleSeeder extends Seeder
             'create-patient',
             'edit-patient',
             'delete-patient',
-            
         ]);
 
         $admin1->givePermissionTo([

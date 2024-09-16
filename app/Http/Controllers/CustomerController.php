@@ -64,7 +64,6 @@ class CustomerController extends Controller
             'organization_id' => auth()->user()->organization_id,
         ]);
 
-
         return redirect()->route('customers.index')
                 ->withSuccess('New customer added successfully.');
 
@@ -85,15 +84,23 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        
+        return view('customers.edit', [
+            'customer' => $customer,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        $input = $request->all();
+        
+        $customer->update($input);
+
+        return redirect()->back()
+                ->withSuccess('Customer is updated successfully.');
     }
 
     /**
@@ -101,6 +108,10 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        //TODO delete patients, entries, etc.
+        //TODO soft deletes
+        $customer->delete();
+        return redirect()->route('customers.index')
+                ->withSuccess('Customer is deleted successfully.');
     }
 }

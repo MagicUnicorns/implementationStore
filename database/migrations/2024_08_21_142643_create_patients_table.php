@@ -16,9 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id')->default(0);
             $table->unsignedBigInteger('customer_id')->default(0);
             $table->string('name');
-            $table->string('gender');
+            $table->enum('gender',['male','female','unknown']);
             $table->dateTime('date_of_birth')->nullable();
-            //todo add date of death and create filtering options
+            $table->dateTime('date_deceased')->nullable(); //TODO make sure we sort by deceased and when the deceased field is filled in make sure to delete upcoming appointments!
             $table->text('medical_history_summary')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();

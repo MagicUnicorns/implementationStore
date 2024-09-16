@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('state', 100)->nullable();
             $table->string('postal_code', 20);
             $table->string('country', 100);
-            $table->enum('preferred_contact_method', ['phone', 'email', 'text'])->nullable();
+            $table->enum('preferred_contact_method', ['phone', 'mail', 'text'])->nullable();
             $table->text('notes')->nullable();
             $table->string('emergency_contact_name')->nullable();
             $table->string('emergency_contact_phone', 20)->nullable();

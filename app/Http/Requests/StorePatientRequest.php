@@ -22,7 +22,12 @@ class StorePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'nullable|string|max:250',
+            'gender' => 'required|in:male,female,unknown',
+            'date_of_birth' => 'required|date|before_or_equal:today',
+            'date_deceased' =>'nullable|date|before_or_equal:today',
+            'medical_history_summary' => 'nullable|string|max:4000',
+            'notes' => 'nullable|string|max:4000',
         ];
     }
 }
