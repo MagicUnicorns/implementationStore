@@ -28,6 +28,16 @@
                     </div>
 
                     <div class="mb-3 row">
+                        <label for="customer_id" class="col-md-4 col-form-label text-md-end text-start">Kunde</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id" value="{{ old('customer_id') }}">
+                            @if ($errors->has('customer_id'))
+                                <span class="text-danger">{{ $errors->first('customer_id') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
                         <label for="gender" class="col-md-4 col-form-label text-md-end text-start">Geschlecht</label>
                         <div class="col-md-6">
                             <select class="form-select" aria-label="Default select example" name="gender" id="gender">
