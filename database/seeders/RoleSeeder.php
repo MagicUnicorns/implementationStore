@@ -26,10 +26,13 @@ class RoleSeeder extends Seeder
             'delete-user',
             'create-customer',
             'edit-customer',
-            'delete-customer',            
+            'delete-customer',
             'create-patient',
             'edit-patient',
             'delete-patient',
+            'create-patient-visit',
+            'edit-patient-visit',
+            'delete-patient-visit',
         ]);
 
         $admin1->givePermissionTo([
@@ -38,10 +41,13 @@ class RoleSeeder extends Seeder
             'delete-user',
             'create-customer',
             'edit-customer',
-            'delete-customer',            
+            'delete-customer',
             'create-patient',
             'edit-patient',
             'delete-patient',
+            'create-patient-visit',
+            'edit-patient-visit',
+            'delete-patient-visit',
         ]);
 
         // $productManager->givePermissionTo([

@@ -16,7 +16,7 @@
                             @method('DELETE')
 
                             @can('edit-patient')
-                                <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-primary btn-sm me-1"><i class="bi bi-pencil-square"></i> Edit</a>   
+                                <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-primary btn-sm me-1"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endcan
 
                             @can('delete-patient')
@@ -45,14 +45,14 @@
                     <div class="mb-3 row">
                         <label for="date_of_birth" class="col-md-4 col-form-label text-md-end text-start"><strong>Date of birth:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $patient->date_of_birth }}
+                            {{ $patient->date_of_birth ? $patient->date_of_birth->format('d.m.Y') : '' }}
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label for="date_deceased" class="col-md-4 col-form-label text-md-end text-start"><strong>Date deceased:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $patient->date_deceased }}
+                            {{ $patient->date_deceased ? $patient->date_deceased->format('d.m.Y H:i') : '' }}
                         </div>
                     </div>
 
@@ -69,10 +69,14 @@
                             {{ $patient->medical_history_summary }}
                         </div>
                     </div>
-
-                    <!-- TODO list of entries here -->
             </div>
         </div>
+        <div class="card">
+            <patient-visits-component :patient_id="'{{$patient->id}}'"></patient-visits-component>
+            @can('create-patient-visit')
+                <a href="{{ route('patient-visits.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New Entry</a>
+            @endcan
+        </div>
     </div>
-</div>    
+</div>
 @endsection

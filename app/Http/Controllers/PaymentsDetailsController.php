@@ -26,8 +26,11 @@ class PaymentsDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        event(new PaymentDetailsRequestNotification(json_encode($request->post())));
-
+        try{
+            event(new PaymentDetailsRequestNotification(json_encode($request->post())));
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+        }
         $response = Http::accept('application/json')
         ->withOptions([
             'proxy' => env('PROXY', null),
@@ -40,9 +43,12 @@ class PaymentsDetailsController extends Controller
             $request->post(),
         );
 
-        event(new PaymentDetailsResponseNotification(json_encode($response->json())));
+        try{
+            event(new PaymentDetailsResponseNotification(json_encode($response->json())));
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+        }
 
-        //error_log(json_encode($response->json()));
         return $response->json();
     }
 }

@@ -34,6 +34,9 @@ app.component('payments-component', PaymentsComponent);
 const DropinComponent = defineAsyncComponent(() => import( './components/DropinComponent.vue'));
 app.component('dropin-component', DropinComponent);
 
+const DropinCtpComponent = defineAsyncComponent(() => import( './components/payments/DropinCtpComponent.vue'));
+app.component('dropin-ctp-component', DropinCtpComponent);
+
 const WebhooksComponent = defineAsyncComponent(() => import( './components/WebhooksComponent.vue'));
 app.component('webhooks-component', WebhooksComponent);
 
@@ -48,6 +51,14 @@ app.component('customer-component', CustomersComponent);
 
 const PatientsComponent = defineAsyncComponent(() => import( './components/patients/PatientsComponent.vue'));
 app.component('patient-component', PatientsComponent);
+
+const PatientVisitsComponent = defineAsyncComponent(() => import ('./components/visits/PatientVisitsComponent.vue'));
+app.component('patient-visits-component', PatientVisitsComponent);
+
+const ReportingComponent = defineAsyncComponent(() => import ('./components/reporting/ReportingComponent.vue'));
+app.component('reporting-component', ReportingComponent);
+
+
 
 /**
  * The following block of code may be used to automatically register your

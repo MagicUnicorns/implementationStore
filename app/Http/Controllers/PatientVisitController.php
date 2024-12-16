@@ -4,16 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePatientVisitRequest;
 use App\Http\Requests\UpdatePatientVisitRequest;
-use App\Models\PatientVisit;
+use App\Models\Patient;
+use App\Models\Visit;
 
 class PatientVisitController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:create-patient-visit|edit-patient-visit|delete-patient-visit', ['only' => ['index','show']]);
+        $this->middleware('permission:create-patient-visit', ['only' => ['create','store']]);
+        $this->middleware('permission:edit-patient-visit', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete-patient-visit', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Patient $patient)
     {
-        //
+        return view('patient_visits.index', [
+            'patient_visits' => $patient->patient_visits()->paginate(10),
+        ]);
     }
 
     /**
@@ -35,7 +46,7 @@ class PatientVisitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PatientVisit $patientVisit)
+    public function show(Visit $patientVisit)
     {
         //
     }
@@ -43,7 +54,7 @@ class PatientVisitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PatientVisit $patientVisit)
+    public function edit(Visit $patientVisit)
     {
         //
     }
@@ -51,7 +62,7 @@ class PatientVisitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePatientVisitRequest $request, PatientVisit $patientVisit)
+    public function update(UpdatePatientVisitRequest $request, Visit $patientVisit)
     {
         //
     }
@@ -59,7 +70,7 @@ class PatientVisitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PatientVisit $patientVisit)
+    public function destroy(Visit $patientVisit)
     {
         //
     }

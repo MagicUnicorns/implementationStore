@@ -9,33 +9,32 @@
                 role="tab" data-bs-target="#nav-home" data-bs-toggle="tab" type="button" aria-controls="nav-home" aria-selected="true">
                 {{ tab.name }}
             </button>
-            <component :is="currentTab" :legalEntityId="this.legalEntityId" class="tab"></component>
+            <component :is="currentTab" :legalEntityId="this.legalEntityId"></component>
         </div>
     </nav>
   </template>
 <script>
 
 import TransferInstrumentContainerComponent from './transferInstrument/TransferInstrumentContainerComponent.vue';
-import ManageTransferInstrumentComponent from './transferInstrument/ManageTransferInstrumentComponent.vue'; //todo we do not want this here, jsut a dummy
+import OnboardIndividualContainerComponent from './individual/OnboardIndividualContainerComponent.vue';
 
 export default {
     components: {
         TransferInstrumentContainerComponent,
-        ManageTransferInstrumentComponent //dummy replace by something we want here
+        OnboardIndividualContainerComponent
     },
     data() {
         return {
             currentTab: 'TransferInstrumentContainerComponent',
-            legalEntityId: 'LE3293S223225R5KZBJFS8944',
+            legalEntityId: 'LE32CPB22322675LPTZ3VFRPB',
             tabs: [
                 {
                     name: 'Payout Accounts',
                     component: 'TransferInstrumentContainerComponent'
                 },
                 {
-                    //replace this by something real
-                    name: 'Manage',
-                    component: 'ManageTransferInstrumentComponent'
+                    name: 'Personal details',
+                    component: 'OnboardIndividualContainerComponent'
                 }
             ]
         }

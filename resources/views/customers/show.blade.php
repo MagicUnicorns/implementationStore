@@ -16,7 +16,7 @@
                             @method('DELETE')
 
                             @can('edit-customer')
-                                <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-primary btn-sm me-1"><i class="bi bi-pencil-square"></i> Edit</a>   
+                                <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-primary btn-sm me-1"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endcan
 
                             @can('delete-customer')
@@ -125,36 +125,42 @@
                         {{ $customer->country }}
                     </div>
                 </div>
-                
+
                 <div class="mb-3 row">
                     <label for="preferred_contact_method" class="col-md-4 col-form-label text-md-end text-start"><strong>Preäferierte Kontaktart:</strong></label>
                     <div class="col-md-6" style="line-height: 35px;">
                         {{ $customer->preferred_contact_method }}
                     </div>
                 </div>
-                                    
+
                 <div class="mb-3 row">
                     <label for="notes" class="col-md-4 col-form-label text-md-end text-start"><strong>Notizen:</strong></label>
                     <div class="col-md-6" style="line-height: 35px;">
                         {{ $customer->notes }}
                     </div>
                 </div>
-                                    
+
                 <div class="mb-3 row">
                     <label for="emergency_contact_name" class="col-md-4 col-form-label text-md-end text-start"><strong>Notfallkontakt:</strong></label>
                     <div class="col-md-6" style="line-height: 35px;">
                         {{ $customer->emergency_contact_name }}
                     </div>
                 </div>
-                                                        
+
                 <div class="mb-3 row">
                     <label for="emergency_contact_phone" class="col-md-4 col-form-label text-md-end text-start"><strong>Notfallkontakt Telefonnummer:</strong></label>
-                    <div class="col-md-6" style="line-height: 35px;">
+                    <div class="col-md-6" style="line-heigt: 35px;">
                         {{ $customer->emergency_contact_phone }}
-                    </div>
+                    </div>h
                 </div>
             </div>
         </div>
+        <div class="card">
+            <patient-component :customer_id="'{{$customer->id}}'"></patient-component>
+            @can('create-customer')
+                <a href="{{ route('patients.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New Patient</a>
+            @endcan
+        </div>
     </div>
-</div>    
+</div>
 @endsection

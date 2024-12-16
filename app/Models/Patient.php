@@ -37,6 +37,10 @@ class Patient extends Model
         return $this->belongsTo(Organization::class);
     }
 
+    public function patient_visits(){
+        return $this->hasMany(Visit::class);
+    }
+
     /**
      * The attributes that should be cast.
      *

@@ -14,12 +14,6 @@
   import DynamicListComponent from '../dynamic/DynamicListComponent.vue';
 
   export default {
-    props: {
-        customerId: {
-            type: String,
-            required: false
-        }
-    },
     components: {
         DynamicListComponent,
     },
@@ -38,9 +32,9 @@
         async fetchData(){
           try{
                 axios.get('/list/patient', {
-                  params: {
-                    customer_id: this.customerId
-                  }
+                    params: {
+                        customer_id: 1
+                    }
                 }).then(response => {
                     this.tableData = response.data.tableData;
                     this.tableColumns = response.data.tableColumns;
@@ -59,7 +53,6 @@
     },
     mounted() {
       console.log('1234/');
-      console.log(this.customerId);
       console.log('Parent function:', this.onRowClick); // Should log the function definition
     }
   };

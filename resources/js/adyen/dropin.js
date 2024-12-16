@@ -21,14 +21,16 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
           dropin.setStatus('ready'); // set back to the initial state
           makePayment(state.data)
           .then(response => {
-            if (response.action) {
-              // Drop-in handles the action object from the /payments response
-              console.log("handleAction:")
-              dropin.handleAction(response.action);
-            } else {
+            console.log(response)
+            // if (response.action) {
+            //   // Drop-in handles the action object from the /payments response
+            //   console.log("handleAction:")
+              
+            //   dropin.handleAction(response.action);
+            // } else {
               // Your function to show the final result to the shopper
               showFinalResult(response, dropin);
-            }
+            // }
           })
           .catch(error => {
             throw Error(error);
@@ -51,6 +53,9 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
             //   merchantDisplayName: 'YOUR_MERCHANT_NAME',
             //   shopperEmail: 'sebastian.lerch+ctp01@adyen.com'
             // }
+          },
+          paypal:{
+            intent: "authorize"
           }
         }
       };

@@ -26,8 +26,11 @@ class PermissionSeeder extends Seeder
             'create-patient',
             'edit-patient',
             'delete-patient',
+            'create-patient-visit',
+            'edit-patient-visit',
+            'delete-patient-visit',
          ];
- 
+
           // Looping and Inserting Array's Permissions into Permission Table
          foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);

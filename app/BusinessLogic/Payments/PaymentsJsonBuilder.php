@@ -22,7 +22,8 @@ class PaymentsJsonBuilder
      *                        and e.g. for scheme the (encrypted) card data. If not it should at least contain the 
      *                        paymentMethod, s.t. we can fill it with dummy data here.
      */
-    public static function createPaymentsBody($paymentsData, $amount = 1234, $currency = 'EUR'){
+    public static function createPaymentsBody($paymentsData, $amount = 1000, $currency = 'EUR'){
+        
         
         //first add everything all payment methods have in common
         $body = self::getCommonDefaultValues($amount, $currency);
@@ -58,7 +59,7 @@ class PaymentsJsonBuilder
         if (array_key_exists('paymentMethod', $paymentsData) && array_key_exists('type', $paymentsData['paymentMethod'])){
             $paymentMethodType = $paymentsData["paymentMethod"]["type"];
         }
-        else{
+        else{ //default
             $paymentMethodType = 'scheme';
         }   
 
@@ -67,11 +68,47 @@ class PaymentsJsonBuilder
                 return self::getSchemeData($paymentsData);                
                 break;
             
+            case 'paypal':
+                return self::getPaypalData($paymentsData);
+                break;
             default:
                 # code...
                 dd("Unsupported payment method " . $paymentMethodType . ".");
                 break;
         }
+    }
+
+    private static function getPaypalData($paymentsData){
+
+        
+
+        $returnValue = [
+            "paymentMethod" => [
+                "type" => "paypal",
+                "subType" => "sdk"
+            ],
+            "lineItems" => [
+                [
+                   "quantity" => "1",
+                   "description" => "Red Shoes",
+                   "itemCategory" => "PHYSICAL_GOODS",
+                   "sku" => "ABC123",
+                   "amountExcludingTax" => "590",
+                   "taxAmount" => "10"
+                ],
+                [
+                   "quantity" => "3",
+                   "description" => "Polkadot Socks",
+                   "itemCategory" => "PHYSICAL_GOODS",
+                   "sku" => "DEF234",
+                   "amountExcludingTax" => "90",
+                   "taxAmount" => "10"
+                ]
+             ],
+             "additionalData" => [
+                "paypalRisk" => "STATE_DATA"
+             ]
+        ];
     }
 
     private static function getSchemeData($paymentsData){

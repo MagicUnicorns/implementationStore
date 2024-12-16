@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 use App\Models\Customer;
 use App\Models\Patient;
-use App\Models\PatientVisit;
+use App\Models\Visit;
 
 use Carbon\Carbon;
 

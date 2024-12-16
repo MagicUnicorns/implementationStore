@@ -74,7 +74,11 @@ Route::post('/payments/details', [App\Http\Controllers\PaymentsDetailsController
 
 Route::GET('/onboarding/{id}', [App\Http\Controllers\OnboardingController::class, 'index'])->name('onboardings.onboarding');
 
+Route::GET('/reporting/{id}', [App\Http\Controllers\ReportingController::class, 'index'])->name('reports.reporting');
+
 Route::GET('/adyen-onboarding-sdk-token', [App\Http\Controllers\OnboardingSdkController::class, 'index']);
+Route::POST('/adyen-onboarding-sdk-token', [App\Http\Controllers\OnboardingSdkController::class, 'store']);
+Route::GET('/adyen-reporting-sdk-token', [App\Http\Controllers\OnboardingSdkController::class, 'reporting']);
 /*
  NOTE: it is important to have routes in correct order, e.g
 

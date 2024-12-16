@@ -54,16 +54,20 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $payment = new Payment;
-
-        //error_log(json_encode($request->all()));
+        // error_log("TEST1");
+        // error_log($request);
+        // error_log($request);
         //TODO fill parameter array for following call correctly
-        $body = PaymentsJsonBuilder::createPaymentsBody($request->all());
+        $body = PaymentsJsonBuilder::createPaymentsBody($request);
+
+        error_log("TEST");
 
         $payment->request = json_encode($body);
         $payment->reference = Str::uuid();
 
         //TODO give the user model an organisation id and use this here to make sure all users of an organisation can see the payment
         $payment->organization_id = auth()->user()->organization_id;
+
 
         //TODO proper handling of error
         try{

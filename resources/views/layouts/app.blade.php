@@ -59,6 +59,9 @@
                                     <a class="dropdown-item" href="{{ url('/onboarding/' . Auth::user()->organization_id) }}">
                                         Onboarding
                                     </a>
+                                    <a class="dropdown-item" href="{{ url('/reporting/' . Auth::user()->organization_id) }}">
+                                        Reporting
+                                    </a>
                                     @canany(['create-role', 'edit-role', 'delete-role'], Auth::user()->organization_id)
                                         <a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a>
                                     @endcanany

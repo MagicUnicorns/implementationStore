@@ -20,8 +20,9 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@adyen/adyen-platform-experience-web": "^1.1.1",
         "@adyen/adyen-web": "^5.32.0",
-        "@adyen/kyc-components": "^3.16.1",
+        "@adyen/kyc-components": "^3.32.0",
         "vuedraggable": "^2.24.3"
     }
 }

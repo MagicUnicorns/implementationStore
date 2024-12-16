@@ -3,7 +3,6 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
-        
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
@@ -47,7 +46,7 @@
                         <div class="col-md-6">
                         <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror" id="date_of_birth" name="date_of_birth" value="{{ $patient->date_of_birth }}">
                             @if ($errors->has('date_of_birth'))
-                                <span class="text-danger">{{ $errors->first('date_of_birth') }}</span>
+                                <span class="text-danger">{{ $errors->first('date_of_birth')->format('d/m/Y H:i') }}</span>
                             @endif
                         </div>
                     </div>
@@ -57,7 +56,7 @@
                         <div class="col-md-6">
                         <input type="date" class="form-control @error('date_deceased') is-invalid @enderror" id="date_deceased" name="date_deceased" value="{{ $patient->date_deceased }}">
                             @if ($errors->has('date_deceased'))
-                                <span class="text-danger">{{ $errors->first('date_deceased') }}</span>
+                                <span class="text-danger">{{ $errors->first('date_deceased')->format('d/m/Y H:i') }}</span>
                             @endif
                         </div>
                     </div>

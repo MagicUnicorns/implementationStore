@@ -42,9 +42,9 @@ class PaymentMethodsController extends Controller
             'countryCode' => 'DE',
             'allowedPaymentMethods' => [
                 'ideal',
-                'giropay',
                 'twint',
                 'scheme',
+                'paypal'
             ],
             'blockedPaymentMethods' => [
                 
