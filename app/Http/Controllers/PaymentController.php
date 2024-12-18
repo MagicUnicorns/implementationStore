@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Illuminate\Support\Fluent;
 
 use App\BusinessLogic\Payments\PaymentsJsonBuilder;
 
@@ -54,13 +55,12 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $payment = new Payment;
-        // error_log("TEST1");
-        // error_log($request);
-        // error_log($request);
-        //TODO fill parameter array for following call correctly
-        $body = PaymentsJsonBuilder::createPaymentsBody($request);
+        error_log("TEST1");
 
-        error_log("TEST");
+        //TODO fill parameter array for following call correctly
+        $body = PaymentsJsonBuilder::createPaymentsBody(json_decode($request->getContent(), true));
+
+        
 
         $payment->request = json_encode($body);
         $payment->reference = Str::uuid();
@@ -75,7 +75,7 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
             error_log($e->getMessage());
         }
-
+        
         $response = Http::accept('application/json')
         ->withOptions([
             'proxy' => env('PROXY', null),
@@ -85,10 +85,12 @@ class PaymentController extends Controller
             'Content-Type' => 'application/json',
         ])
         ->post(env('ADYEN_PAYMENTS_ENDPOINT',null), $body);
-
+        error_log(json_encode($response->json(), JSON_PRETTY_PRINT));
         $payment->response = json_encode($response->json());
-        $payment->pspreference = $response['pspReference'];
-        $payment->resultCode = $response['resultCode'];
+
+        $responseBody = new Fluent($response->json());
+        $payment->pspreference = $responseBody->pspReference;
+        $payment->resultCode = $responseBody->resultCode;
         
         //TODO proper handling of error
         try{

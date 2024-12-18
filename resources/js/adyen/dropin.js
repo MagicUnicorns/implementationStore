@@ -5,6 +5,11 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
     const configuration = {
       paymentMethodsResponse: await paymentMethodsArray,
         environment: 'test', // Change to one of the environment values specified in step 4.
+        countryCode: "DE",
+        amount: {
+          currency: "EUR",
+          value: 1000
+      },
         clientKey: import.meta.env.VITE_ADYEN_CLIENT_KEY, // Public key used for client-side authentication: https://docs.adyen.com/development-resources/client-side-authentication
         analytics: {
           enabled: true // Set to false to not send analytics data to Adyen.
@@ -22,15 +27,15 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
           makePayment(state.data)
           .then(response => {
             console.log(response)
-            // if (response.action) {
-            //   // Drop-in handles the action object from the /payments response
-            //   console.log("handleAction:")
+            if (response.action) {
+              // Drop-in handles the action object from the /payments response
+              console.log("handleAction:")
               
-            //   dropin.handleAction(response.action);
-            // } else {
-              // Your function to show the final result to the shopper
+              dropin.handleAction(response.action);
+            } else {
+              //Your function to show the final result to the shopper
               showFinalResult(response, dropin);
-            // }
+            }
           })
           .catch(error => {
             throw Error(error);
