@@ -60,8 +60,6 @@ class PaymentController extends Controller
         //TODO fill parameter array for following call correctly
         $body = PaymentsJsonBuilder::createPaymentsBody(json_decode($request->getContent(), true));
 
-        
-
         $payment->request = json_encode($body);
         $payment->reference = Str::uuid();
 

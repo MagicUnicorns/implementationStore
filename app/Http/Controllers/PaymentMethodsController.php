@@ -44,7 +44,9 @@ class PaymentMethodsController extends Controller
                 'ideal',
                 'twint',
                 'scheme',
-                'paypal'
+                'paypal',
+                'googlepay',
+                'applepay',
             ],
             'blockedPaymentMethods' => [
                 

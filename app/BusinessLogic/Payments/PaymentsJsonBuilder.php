@@ -22,7 +22,7 @@ class PaymentsJsonBuilder
      *                        and e.g. for scheme the (encrypted) card data. If not it should at least contain the 
      *                        paymentMethod, s.t. we can fill it with dummy data here.
      */
-    public static function createPaymentsBody($paymentsData, $amount = 1100, $currency = 'EUR'){
+    public static function createPaymentsBody($paymentsData, $amount = 11100, $currency = 'EUR'){
         
         error_log("entered createPaymentsBody");
         //first add everything all payment methods have in common
@@ -32,6 +32,11 @@ class PaymentsJsonBuilder
 
         $paymentSpecificContent = self::getPaymentMethodContent($paymentsData);
         error_log("left getPaymentMethodContent");
+        // error_log($paymentSpecificContent);
+        if(!is_array($paymentSpecificContent)){
+            $paymentSpecificContent = [];
+        }
+        
         return array_merge(
             $body,
             $paymentSpecificContent
@@ -53,6 +58,11 @@ class PaymentsJsonBuilder
             "currency" => $currency,
             "value" => $amount,
         ];
+
+        // $body["additionalData"] = [
+        //     "manualCapture" => "true"
+        // ];
+
         error_log("leaving getCommonDefaultValues");
         return $body;
 
@@ -85,15 +95,37 @@ class PaymentsJsonBuilder
             case 'scheme':
                 return self::getSchemeData($paymentsData);                
                 break;
-            
             case 'paypal':
                 return self::getPaypalData($paymentsData);
+                break;
+            case 'googlepay':
+                return self::getGooglePayData($paymentsData);
+                break;
+            case 'applepay':
+                return self::getApplePayData($paymentsData);
                 break;
             default:
                 # code...
                 dd("Unsupported payment method " . $paymentMethodType . ".");
                 break;
         }
+    }
+
+    private static function getGooglePayData($paymentsData){
+        $returnValue = [
+            "paymentMethod" => [
+                "type" => "googlepay",
+                "googlePayToken" => $paymentsData["paymentMethod"]["googlePayToken"],
+                "checkoutAttemptId" => $paymentsData["paymentMethod"]["checkoutAttemptId"],
+                "googlePayCardNetwork" => $paymentsData["paymentMethod"]["googlePayCardNetwork"],
+            ]
+        ];
+
+        return $returnValue;
+    }
+
+    private static function getApplePayData($paymentsData){
+        dd("not implemented");
     }
 
     private static function getPaypalData($paymentsData){

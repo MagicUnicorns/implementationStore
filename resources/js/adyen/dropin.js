@@ -61,7 +61,8 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
           },
           paypal:{
             intent: "authorize"
-          }
+          },
+          googlePayConfiguration : googlePayConfiguration,
         }
       };
       
@@ -70,6 +71,24 @@ export async function dropin(paymentMethodsArray, mount = true, element = 'dropi
 
       return await AdyenCheckout(configuration)
 }
+
+const googlePayConfiguration = {
+  amount: {
+      value: 1000,
+      currency: "EUR"
+  },
+  buttonType: 'checkout',
+  buttonColor: 'white',
+  countryCode: "NL",
+  //Set this to PRODUCTION when you are ready to accept live payments
+  environment: "TEST",
+  origin: "http://localhost:8080",
+  authenticationData:{
+    threeDSRequestData:{
+      nativeThreeDS : "preferred" 
+    }
+  }
+};
 
 const httpPost = (endpoint, data) =>
     fetch(`${endpoint}`, {
@@ -117,21 +136,25 @@ function showFinalResult(res, dropin) {
         // Show a success message
         // dropin.setStatus('success');
         dropin.setStatus('success', { message: 'Payment successful!' });
+        //TODO redirect here to wherever needed
         break;
       case "Pending":
       case "Received":
         // Set a loading state
         dropin.setStatus('loading'); // start the loading state
         dropin.setStatus('ready'); // set back to the initial state
+        //TODO redirect here to wherever needed
         break;
       case "Refused":
         dropin.setStatus('error');
         dropin.setStatus('error', { message: 'Something went wrong payment was refused.'});
+        //TODO redirect here to wherever needed
         break;
       default:
         // Show an error message
         dropin.setStatus('error');
         dropin.setStatus('error', { message: 'Something went wrong.'});
+        //TODO redirect here to wherever needed
         break;
   }
 }
