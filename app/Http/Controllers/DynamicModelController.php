@@ -13,6 +13,7 @@ class DynamicModelController extends Controller
         $this->middleware('permission:create-customer|edit-customer|delete-customer', ['only' => ['index']]);
         $this->middleware('permission:create-patient|edit-patient|delete-patient', ['only' => ['index']]);
         $this->middleware('permission:create-patient-visit|edit-patient-visit|delete-patient-visit', ['only' => ['index']]);
+        $this->middleware('permission:create-invoice|edit-invoice|delete-invoice', ['only' => ['index']]);
         //what models else?
     }
     /**

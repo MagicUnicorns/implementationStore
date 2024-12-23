@@ -29,6 +29,9 @@ class PermissionSeeder extends Seeder
             'create-patient-visit',
             'edit-patient-visit',
             'delete-patient-visit',
+            'create-invoice',
+            'edit-invoice',
+            'delete-invoice',
          ];
 
           // Looping and Inserting Array's Permissions into Permission Table

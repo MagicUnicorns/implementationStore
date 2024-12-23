@@ -33,6 +33,9 @@ class RoleSeeder extends Seeder
             'create-patient-visit',
             'edit-patient-visit',
             'delete-patient-visit',
+            'create-invoice',
+            'edit-invoice',
+            'delete-invoice',
         ]);
 
         $admin1->givePermissionTo([
@@ -48,6 +51,9 @@ class RoleSeeder extends Seeder
             'create-patient-visit',
             'edit-patient-visit',
             'delete-patient-visit',
+            'create-invoice',
+            'edit-invoice',
+            'delete-invoice',
         ]);
 
         // $productManager->givePermissionTo([

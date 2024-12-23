@@ -75,4 +75,10 @@ class Organization extends Model
         return $this->hasMany(Patient::class);
         
     }
+
+    public function invoices(){
+
+        return $this->hasMany(Invoice::class);
+        
+    }
 }
