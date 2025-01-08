@@ -21,7 +21,9 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        return view('invoices.index', [
+            'invoices' => Invoice::latest('id')->paginate(10),
+        ]);
     }
 
     /**

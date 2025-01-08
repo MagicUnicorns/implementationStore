@@ -25,8 +25,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('category1/item3') ? 'active' : '' }}" href="{{ url('/category1/item3') }}">
-                        Item 3
+                    <a class="nav-link {{ request()->is('invoices') ? 'active' : '' }}" href="{{ url('/invoices') }}">
+                        Invoices
                     </a>
                 </li>
             </ul>

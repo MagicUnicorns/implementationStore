@@ -32,7 +32,7 @@
         methods: {
             async fetchData(){
             try{
-                    axios.get('/list/invoices').then(response => {
+                    axios.get('/list/invoice').then(response => {
                         this.tableData = response.data.tableData;
                         this.tableColumns = response.data.tableColumns;
                     })

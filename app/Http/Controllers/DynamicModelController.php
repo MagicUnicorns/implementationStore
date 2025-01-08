@@ -42,8 +42,6 @@ class DynamicModelController extends Controller
                 $data = $modelInstance->all();
             }
 
-
-
             return response()->json([
                 'tableColumns' => $visibleColumns,
                 'tableData' => $data,

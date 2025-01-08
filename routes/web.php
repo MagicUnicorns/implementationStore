@@ -12,6 +12,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\InvoiceController;
 
 use App\Http\Controllers\DynamicModelController;
 
@@ -96,6 +97,7 @@ Route::resources([
     'users' => UserController::class,
     'patients' => PatientController::class,
     'customers' => CustomerController::class,
+    'invoices' => InvoiceController::class,
 ]);
 
 Route::get('/list/{modelName}', [DynamicModelController::class, 'index']);

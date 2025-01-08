@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 
 use App\Models\Scopes\OrganizationScope;
 
-
+#[ScopedBy([OrganizationScope::class])]
 class Invoice extends Model
 {
     use HasFactory;

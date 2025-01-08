@@ -58,7 +58,8 @@ app.component('patient-visits-component', PatientVisitsComponent);
 const ReportingComponent = defineAsyncComponent(() => import ('./components/reporting/ReportingComponent.vue'));
 app.component('reporting-component', ReportingComponent);
 
-
+const InvoiceComponent = defineAsyncComponent(() => import ('./components/invoicing/InvoiceComponent.vue'));
+app.component('invoice-component', InvoiceComponent);
 
 /**
  * The following block of code may be used to automatically register your
